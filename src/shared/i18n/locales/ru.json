@@ -1,0 +1,74 @@
+{
+  "open_menu": "Открыть меню",
+
+  "search": "Поиск",
+
+  "theme": "Тема",
+  "notifications": "Уведомления",
+  "language": "Язык",
+  "profile": "Профиль",
+
+  "fullscreen": "Полный экран",
+  "exit_fullscreen": "Выйти из полного экрана",
+
+  "today": "Сегодня",
+
+  "weather": "Погода",
+  "weather_unavailable": "Погода недоступна",
+  "current_weather": "Текущая погода",
+  "location_detecting": "Определение местоположения...",
+  "loading": "Загрузка...",
+  "check_connection": "Проверьте интернет",
+  "updated": "Обновлено",
+  "forecast_7": "Прогноз на 7 дней",
+  "selected": "Выбрано",
+
+  "wind": "Ветер",
+  "direction": "Направление",
+  "humidity": "Влажность",
+  "feels_like": "Ощущается как",
+  "precipitation": "Осадки",
+  "wind_max": "Ветер (макс.)",
+  "max": "Макс",
+  "min": "Мин",
+
+  "view_all": "Посмотреть все",
+
+  "profile_settings": "Настройки",
+  "profile_billing": "Оплата",
+  "profile_activity": "Активность",
+  "profile_help": "Помощь",
+
+  "menu": "Меню",
+
+  "dashboard": "Панель",
+  "dashboard_1": "Панель 1",
+  "dashboard_2": "Панель 2",
+  "shipments": "Отправления",
+  "delivery": "Доставка",
+  "clients": "Клиенты",
+
+  "calendar_title": "Календарь",
+  "prev_month": "Предыдущий месяц",
+  "next_month": "Следующий месяц",
+  "normal_workday": "Обычный рабочий день",
+  "holiday": "Праздник",
+  "day_off": "Выходной",
+  "extra_day_off": "Доп. выходной",
+
+  "day_open_menu": "Открыть меню",
+  "toggle_sidebar": "Свернуть/развернуть сайдбар",
+
+  "lang_uz": "O‘zbek",
+  "lang_ru": "Русский",
+  "lang_en": "English",
+
+  "weather_clear": "Ясно",
+  "weather_partly_cloudy": "Переменная облачность",
+  "weather_cloudy": "Облачно",
+  "weather_fog": "Туман",
+  "weather_drizzle": "Морось",
+  "weather_rain": "Дождь",
+  "weather_snow": "Снег",
+  "weather_thunderstorm": "Гроза"
+}

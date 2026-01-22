@@ -1,0 +1,74 @@
+{
+  "open_menu": "Menyuni ochish",
+
+  "search": "Qidirish",
+
+  "theme": "Mavzu",
+  "notifications": "Bildirishnomalar",
+  "language": "Til",
+  "profile": "Profil",
+
+  "fullscreen": "To‘liq ekran",
+  "exit_fullscreen": "To‘liq ekrandan chiqish",
+
+  "today": "Bugun",
+
+  "weather": "Ob-havo",
+  "weather_unavailable": "Ob-havo mavjud emas",
+  "current_weather": "Joriy ob-havo",
+  "location_detecting": "Manzil aniqlanmoqda...",
+  "loading": "Yuklanmoqda...",
+  "check_connection": "Internetni tekshiring",
+  "updated": "Yangilandi",
+  "forecast_7": "7 kunlik prognoz",
+  "selected": "Tanlandi",
+
+  "wind": "Shamol",
+  "direction": "Yo‘nalish",
+  "humidity": "Namlik",
+  "feels_like": "His qilinadi",
+  "precipitation": "Yog‘ingarchilik",
+  "wind_max": "Shamol (max)",
+  "max": "Maks",
+  "min": "Min",
+
+  "view_all": "Hammasini ko‘rish",
+
+  "profile_settings": "Sozlamalar",
+  "profile_billing": "To‘lovlar",
+  "profile_activity": "Faollik",
+  "profile_help": "Yordam",
+
+  "menu": "Menyu",
+
+  "dashboard": "Dashboard",
+  "dashboard_1": "Dashboard 1",
+  "dashboard_2": "Dashboard 2",
+  "shipments": "Yuklar",
+  "delivery": "Yetkazib berish",
+  "clients": "Mijozlar",
+
+  "calendar_title": "Kalendar",
+  "prev_month": "Oldingi oy",
+  "next_month": "Keyingi oy",
+  "normal_workday": "Oddiy ish kuni",
+  "holiday": "Bayram",
+  "day_off": "Dam olish",
+  "extra_day_off": "Qo‘shimcha dam olish",
+
+  "day_open_menu": "Menyuni ochish",
+  "toggle_sidebar": "Sidebarni yig‘ish/ochish",
+
+  "lang_uz": "O‘zbek",
+  "lang_ru": "Русский",
+  "lang_en": "English",
+
+  "weather_clear": "Ochiq",
+  "weather_partly_cloudy": "Qisman bulutli",
+  "weather_cloudy": "Bulutli",
+  "weather_fog": "Tuman",
+  "weather_drizzle": "Mayda yomg‘ir",
+  "weather_rain": "Yomg‘ir",
+  "weather_snow": "Qor",
+  "weather_thunderstorm": "Momaqaldiroq"
+}

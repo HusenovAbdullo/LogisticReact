@@ -1,0 +1,74 @@
+{
+  "open_menu": "Open menu",
+
+  "search": "Search",
+
+  "theme": "Theme",
+  "notifications": "Notifications",
+  "language": "Language",
+  "profile": "Profile",
+
+  "fullscreen": "Fullscreen",
+  "exit_fullscreen": "Exit fullscreen",
+
+  "today": "Today",
+
+  "weather": "Weather",
+  "weather_unavailable": "Weather unavailable",
+  "current_weather": "Current weather",
+  "location_detecting": "Detecting location...",
+  "loading": "Loading...",
+  "check_connection": "Check your connection",
+  "updated": "Updated",
+  "forecast_7": "7-day forecast",
+  "selected": "Selected",
+
+  "wind": "Wind",
+  "direction": "Direction",
+  "humidity": "Humidity",
+  "feels_like": "Feels like",
+  "precipitation": "Precipitation",
+  "wind_max": "Wind (max)",
+  "max": "Max",
+  "min": "Min",
+
+  "view_all": "View all",
+
+  "profile_settings": "Settings",
+  "profile_billing": "Billing",
+  "profile_activity": "Activity",
+  "profile_help": "Help",
+
+  "menu": "Menu",
+
+  "dashboard": "Dashboard",
+  "dashboard_1": "Dashboard 1",
+  "dashboard_2": "Dashboard 2",
+  "shipments": "Shipments",
+  "delivery": "Delivery",
+  "clients": "Clients",
+
+  "calendar_title": "Calendar",
+  "prev_month": "Previous month",
+  "next_month": "Next month",
+  "normal_workday": "Normal workday",
+  "holiday": "Holiday",
+  "day_off": "Day off",
+  "extra_day_off": "Extra day off",
+
+  "day_open_menu": "Open menu",
+  "toggle_sidebar": "Toggle sidebar",
+
+  "lang_uz": "O‘zbek",
+  "lang_ru": "Русский",
+  "lang_en": "English",
+
+  "weather_clear": "Clear",
+  "weather_partly_cloudy": "Partly cloudy",
+  "weather_cloudy": "Cloudy",
+  "weather_fog": "Fog",
+  "weather_drizzle": "Drizzle",
+  "weather_rain": "Rain",
+  "weather_snow": "Snow",
+  "weather_thunderstorm": "Thunderstorm"
+}
