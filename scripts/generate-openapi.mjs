@@ -5,7 +5,9 @@ import path from "node:path";
 const ROOT = process.cwd();
 const SRC = path.join(ROOT, "src");
 const PUBLIC_DIR = path.join(ROOT, "public");
-const OUT_FILE = path.join(PUBLIC_DIR, "openapi.json");
+
+// MUHIM: conflict bo‘lmasligi uchun nomni o‘zgartirdik
+const OUT_FILE = path.join(PUBLIC_DIR, "openapi.full.json");
 
 function ensureDir(p) {
   if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
@@ -29,20 +31,20 @@ function toPosix(p) {
 /**
  * Next App Router API route path:
  * src/app/api/buyer/today-stats/route.ts  -> /api/buyer/today-stats
- * src/app/api/auth/logout/route.ts       -> /api/auth/logout
  */
 function deriveInternalRoutePath(file) {
   const p = toPosix(file);
   const idx = p.indexOf("/src/app/api/");
   if (idx === -1) return null;
+
   const rel = p.slice(idx + "/src/app/api/".length);
-  if (!rel.endsWith("/route.ts") && !rel.endsWith("/route.tsx") && !rel.endsWith("/route.js")) return null;
+  if (!/\/route\.(ts|tsx|js)$/.test(rel)) return null;
+
   const dir = rel.replace(/\/route\.(ts|tsx|js)$/, "");
   return "/api/" + dir;
 }
 
 function extractMethods(fileText) {
-  // export async function GET|POST|PUT|PATCH|DELETE|HEAD
   const re = /export\s+async\s+function\s+(GET|POST|PUT|PATCH|DELETE|HEAD)\s*\(/g;
   const methods = new Set();
   let m;
@@ -50,11 +52,15 @@ function extractMethods(fileText) {
   return [...methods];
 }
 
+/**
+ * Outgoing endpoint’larni ko‘proq topish uchun:
+ * 1) serverFetch("..."), fetch("https://...") literal
+ * 2) kod ichidagi "/api/v1/..." kabi yo‘llar (template string bo‘lsa ham)
+ */
 function findOutgoingCalls(tsText) {
-  // serverFetch("/api/v1/...") yoki serverFetchInternal("/api/...")
-  // fetch("https://...") ham literal bo‘lsa
   const found = [];
 
+  // serverFetch("/api/v1/...")
   const reServerFetch = /\b(serverFetch|serverFetchInternal)\s*<[^>]*>\s*\(\s*["'`]([^"'`]+)["'`]/g;
   let m;
   while ((m = reServerFetch.exec(tsText))) {
@@ -66,18 +72,19 @@ function findOutgoingCalls(tsText) {
     found.push({ kind: m[1], url: m[2] });
   }
 
+  // fetch("https://...")
   const reFetchAbs = /\bfetch\s*\(\s*["'`](https?:\/\/[^"'`]+)["'`]/g;
   while ((m = reFetchAbs.exec(tsText))) {
     found.push({ kind: "fetch", url: m[1] });
   }
 
-  return found;
-}
+  // "/api/v1/..." kabi yo‘llarni ham topamiz (template string bo‘lsa ham)
+  const reApiPath = /(["'`])((?:\/api\/v\d+\/)[^"'`\s]+)\1/g;
+  while ((m = reApiPath.exec(tsText))) {
+    found.push({ kind: "apiPath", url: m[2] });
+  }
 
-function normalizeBackendUrl(u) {
-  // backend absolute bo‘lsa shuni qoldiramiz,
-  // relative bo‘lsa “(relative)” sifatida qoldiramiz
-  return u;
+  return found;
 }
 
 function buildOpenApi({ internal, outgoing }) {
@@ -87,9 +94,7 @@ function buildOpenApi({ internal, outgoing }) {
       title: "Logistics API (full from code)",
       version: "1.0.0",
     },
-    servers: [
-      { url: "/", description: "This app (Next.js)" },
-    ],
+    servers: [{ url: "/", description: "This app (Next.js)" }],
     paths: {},
     tags: [
       { name: "internal", description: "Next.js internal API routes (/api/...)" },
@@ -110,19 +115,16 @@ function buildOpenApi({ internal, outgoing }) {
     }
   }
 
-  // outgoing (faqat ko‘rinadigan string literal’lar)
-  // Swagger'da ko‘rsatish uchun "virtual" paths ichiga qo‘shamiz:
-  // /__outgoing__/api/v1/... kabi
+  // outgoing
+  // (virtual path) /__outgoing__/api/v1/... ko‘rinishda chiqadi
   for (const o of outgoing) {
-    const key = `/__outgoing__/${o.url.replace(/^\//, "")}`;
+    const key = `/__outgoing__/${String(o.url).replace(/^\//, "")}`;
     if (!spec.paths[key]) spec.paths[key] = {};
-    // methodni aniqlash qiyin (koddan regex bilan topish mumkin, hozircha GET deb qo‘yib turamiz)
-    // keyinchalik yaxshilash mumkin
     spec.paths[key]["get"] = {
       tags: ["outgoing"],
       summary: `USED OUTGOING: ${o.url}`,
       description:
-        "This is a discovered outgoing call from code. Real method/body may vary. See request logs for real payloads.",
+        "Discovered from code. Real method/body may vary. Use Request Logs for real payloads.",
       responses: { "200": { description: "Upstream response" } },
     };
   }
@@ -142,11 +144,11 @@ function uniqBy(arr, keyFn) {
 function main() {
   ensureDir(PUBLIC_DIR);
 
-  // 1) Internal API routes
+  // internal routes
   const apiDir = path.join(SRC, "app", "api");
   const routeFiles = walk(apiDir).filter((f) => /\/route\.(ts|tsx|js)$/.test(toPosix(f)));
-  const internal = [];
 
+  const internal = [];
   for (const f of routeFiles) {
     const p = deriveInternalRoutePath(f);
     if (!p) continue;
@@ -155,18 +157,22 @@ function main() {
     internal.push({ path: p, methods: methods.length ? methods : ["GET"] });
   }
 
-  // 2) Outgoing calls in codebase
+  // outgoing calls
   const tsFiles = walk(SRC).filter((f) => /\.(ts|tsx)$/.test(f));
   let outgoing = [];
+
   for (const f of tsFiles) {
     const text = fs.readFileSync(f, "utf8");
     const found = findOutgoingCalls(text);
+
     for (const it of found) {
-      // serverFetchInternal => internal, serverFetch => backend, fetch(https://) => backend
+      // internal fetchlar chiqmasin:
       if (it.kind === "serverFetchInternal") continue;
-      outgoing.push({ url: normalizeBackendUrl(it.url) });
+      // faqat backendga tegishli bo‘lishi mumkin bo‘lganlar:
+      outgoing.push({ url: it.url });
     }
   }
+
   outgoing = uniqBy(outgoing, (x) => x.url);
 
   const spec = buildOpenApi({

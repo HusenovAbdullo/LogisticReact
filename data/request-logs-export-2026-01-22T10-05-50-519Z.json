@@ -1,0 +1,4044 @@
+[
+  {
+    "id": "731f1dd1-002e-41b2-9807-fb9e79be6cb6",
+    "ts": "2026-01-22T08:44:19.518Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 38,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "aeb225db-bc97-48ad-b214-6e17ab5f6e89",
+    "ts": "2026-01-22T08:44:19.515Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 29,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:44:19 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "0278b184-4214-4584-b35b-3b0287df1cd6",
+    "ts": "2026-01-22T08:44:19.504Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "0594e3e5-bc8c-4261-9e59-40c43ef02dfd",
+    "ts": "2026-01-22T08:44:14.841Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 118,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "82512ff3-f4f0-4719-a2b2-cf11ac9ea69d",
+    "ts": "2026-01-22T08:44:14.838Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 112,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:44:14 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "85c13f5e-e845-40e1-b534-16de09e88076",
+    "ts": "2026-01-22T08:44:14.831Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 38,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "1ad3a632-c775-407a-9d97-35bac292f30b",
+    "ts": "2026-01-22T08:44:14.801Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 115,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "85a6960a-57a1-40bc-919a-905ebb629b4e",
+    "ts": "2026-01-22T08:44:14.798Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 108,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:44:14 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "46338760-f702-416c-a15c-db1b9e3407e4",
+    "ts": "2026-01-22T08:44:14.782Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 9,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "653cb0f5-9a5f-4548-b518-c7087462ef05",
+    "ts": "2026-01-22T08:44:06.993Z",
+    "direction": "incoming",
+    "method": "POST",
+    "url": "/api/auth/logout",
+    "status": 200,
+    "duration_ms": 7,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate, br, zstd",
+      "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uz-UZ;q=0.6,uz;q=0.5",
+      "connection": "keep-alive",
+      "content-length": "0",
+      "cookie": "***",
+      "host": "localhost:3000",
+      "origin": "http://localhost:3000",
+      "referer": "http://localhost:3000/dev/api",
+      "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-origin",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "ok": true
+    }
+  },
+  {
+    "id": "711de879-aa07-4754-beb1-7a38a2f453c0",
+    "ts": "2026-01-22T08:35:37.428Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 28,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "bc5f2af2-e824-4a08-b0f4-977be99f5ff2",
+    "ts": "2026-01-22T08:35:37.426Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 23,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:35:37 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "24bf3726-4ea1-430b-8f79-40ec8980b30a",
+    "ts": "2026-01-22T08:35:37.418Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 6,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "3585d05a-1a31-4d11-888f-35d1461b48e0",
+    "ts": "2026-01-22T08:35:30.941Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 108,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "44dafd9e-c005-45d6-86a4-65cd42b75f2e",
+    "ts": "2026-01-22T08:35:30.939Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 104,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:35:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "80757b3e-8e36-45ba-903c-3888d3e13167",
+    "ts": "2026-01-22T08:35:30.928Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 37,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "c12083c6-af7e-479d-9b30-48d136fee3fb",
+    "ts": "2026-01-22T08:35:30.903Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 99,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "e4ba22be-59ef-47b8-b104-7dc747cfe513",
+    "ts": "2026-01-22T08:35:30.900Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 91,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:35:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "37a920ff-a13c-428b-bc65-bc7b8dadd76d",
+    "ts": "2026-01-22T08:35:30.883Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "1b53878e-9693-4679-90f2-1c3b44799f71",
+    "ts": "2026-01-22T08:26:35.827Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 173,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "68214503-fb1d-4741-aa27-f0b84d682c2d",
+    "ts": "2026-01-22T08:26:35.819Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 155,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:26:35 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "4cb18d69-8706-485b-b00a-00e24dfdccbe",
+    "ts": "2026-01-22T08:26:35.798Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "af99068c-7beb-4e99-aa02-cd81bcd66e4a",
+    "ts": "2026-01-22T08:26:35.701Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 112,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "e4484630-474d-4003-aaf2-a3e173bf45c1",
+    "ts": "2026-01-22T08:26:35.694Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 99,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:26:35 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "1b9150f1-ec1e-4c10-a561-e112a28258c4",
+    "ts": "2026-01-22T08:26:35.678Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "497c0095-0cce-469f-a13f-0a86bbcbc02e",
+    "ts": "2026-01-22T08:25:53.179Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 139,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "2df4ac8a-58d1-4a79-af4e-14d6db6382a7",
+    "ts": "2026-01-22T08:25:53.174Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 128,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:25:53 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "01df53d5-8f37-4ee6-a3d1-375df492317f",
+    "ts": "2026-01-22T08:25:53.158Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)",
+    "tag": "buyer.todayStats"
+  },
+  {
+    "id": "7890ad6c-6ea2-494e-a678-56b72ed4c411",
+    "ts": "2026-01-22T08:24:50.919Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 33,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "eea2fb86-cc0f-46b7-a881-25ca33a64ef2",
+    "ts": "2026-01-22T08:24:50.915Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 24,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:24:50 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "2b013be3-6b31-455e-bfc2-0cac1dc8f3fc",
+    "ts": "2026-01-22T08:24:50.904Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "0fefea8c-ad76-471d-a316-1a5cb34d0ce1",
+    "ts": "2026-01-22T08:23:50.266Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 84,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "8616ccbd-6ec7-4bf5-b808-02d23ddcf2f3",
+    "ts": "2026-01-22T08:23:50.262Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 73,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:23:50 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "c86064eb-e189-46eb-8a47-2cb4eeced0f6",
+    "ts": "2026-01-22T08:23:50.244Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 3,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "fd3e9142-a79e-478e-b81d-636b0a0a15a7",
+    "ts": "2026-01-22T08:18:33.560Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 92,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "2f9c9684-06a3-4b6e-bac6-ab61e3eb2877",
+    "ts": "2026-01-22T08:18:33.556Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 83,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:33 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "7088d4e1-f00d-4b77-ac4a-1c71f76da298",
+    "ts": "2026-01-22T08:18:33.547Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "ad5dbf48-0316-46a4-984b-07360e412af7",
+    "ts": "2026-01-22T08:18:33.509Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 140,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "e70c30dd-cb6a-49ac-90c8-1775815464c9",
+    "ts": "2026-01-22T08:18:33.505Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 132,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:33 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "40697ef1-0dc9-4413-aee8-af7112cf9aa6",
+    "ts": "2026-01-22T08:18:33.495Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "411391bc-903c-4e83-97fd-8adc4dc84484",
+    "ts": "2026-01-22T08:18:33.451Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 140,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "322d2c61-107b-40ec-ac21-8b5c33d8e50b",
+    "ts": "2026-01-22T08:18:33.447Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 131,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:33 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "48ce077b-9169-45bd-93c7-8dc807a3caa0",
+    "ts": "2026-01-22T08:18:33.437Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 59,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "c30396c1-a033-4bf3-b623-4688fde595f4",
+    "ts": "2026-01-22T08:18:33.130Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 34,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "a147d563-eb6e-490b-8bdc-8eb01e04b903",
+    "ts": "2026-01-22T08:18:33.127Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 28,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:33 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "a4867288-3912-43a4-9149-2c3e8c6bf0fa",
+    "ts": "2026-01-22T08:18:33.120Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "2471f280-b1fd-4c42-89ae-12dcd10e2d30",
+    "ts": "2026-01-22T08:18:33.071Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 82,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "4d581c72-a175-4a3e-9a67-f34f4b2b02d9",
+    "ts": "2026-01-22T08:18:33.069Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 77,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:33 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "e288531f-9d36-460e-a114-cdd96c455072",
+    "ts": "2026-01-22T08:18:33.028Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "9b0d4f03-8ca4-4488-b155-57b5dfae1a0c",
+    "ts": "2026-01-22T08:18:32.932Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 68,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "c5fe6599-1e32-4f70-b5fa-488d1649a771",
+    "ts": "2026-01-22T08:18:32.929Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 60,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "742a79c7-1a80-4221-afd1-b62bcecbc93a",
+    "ts": "2026-01-22T08:18:32.920Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "23fc93de-7fd5-4feb-90af-94d744a27e40",
+    "ts": "2026-01-22T08:18:32.891Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 140,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "0754cf52-b25c-44f7-95e2-6149e3c13fef",
+    "ts": "2026-01-22T08:18:32.889Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 136,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "16d882dc-85f8-4db6-ac25-33be8fe7a5aa",
+    "ts": "2026-01-22T08:18:32.882Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "659757e6-0a22-4227-82da-18814130d178",
+    "ts": "2026-01-22T08:18:32.854Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 199,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "082409d8-7b7f-4876-82f9-270821e31f55",
+    "ts": "2026-01-22T08:18:32.853Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 195,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "d03bc3c6-7256-4155-a3bd-ec48447d5647",
+    "ts": "2026-01-22T08:18:32.845Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 73,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "3fdf11d7-7894-4c74-b9b9-42bcc415dccb",
+    "ts": "2026-01-22T08:18:32.485Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 79,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "ee9ecfe2-d8a8-46dc-abe5-a44401a89876",
+    "ts": "2026-01-22T08:18:32.483Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 73,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "12615764-6d55-4616-9fb1-11c09d482584",
+    "ts": "2026-01-22T08:18:32.474Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "82bc88a0-4bd1-46a7-a96a-cf967f795c8c",
+    "ts": "2026-01-22T08:18:32.438Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 131,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "7fd3a38c-36a0-4e28-8db4-4ffcf984abc4",
+    "ts": "2026-01-22T08:18:32.436Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 125,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "404881aa-82a0-4058-a58a-567ced144911",
+    "ts": "2026-01-22T08:18:32.428Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "0b1c6ece-7996-44f4-81ad-6e04c144cd5b",
+    "ts": "2026-01-22T08:18:32.398Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 173,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "17bf5472-5ffa-4cc0-912b-1dab2020efc4",
+    "ts": "2026-01-22T08:18:32.396Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 167,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "5b18aaa3-4630-44d1-bf54-a588958f354c",
+    "ts": "2026-01-22T08:18:32.349Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 32,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "094f05ff-35d4-4130-8aee-d39f4deb651d",
+    "ts": "2026-01-22T08:18:32.024Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 53,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "db66da7e-1114-4b0a-8928-c29ad3d03e65",
+    "ts": "2026-01-22T08:18:32.020Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 45,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:32 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "32570f13-cf5a-46f9-8594-ab096e33089a",
+    "ts": "2026-01-22T08:18:32.011Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "13634596-3cd0-4c11-b3e5-3b61f0de1268",
+    "ts": "2026-01-22T08:18:31.990Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 163,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "f52cd65a-315b-4815-9891-5738161fb952",
+    "ts": "2026-01-22T08:18:31.987Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 156,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "9414d707-6ffd-4239-9306-6660a0775d50",
+    "ts": "2026-01-22T08:18:31.979Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 3,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "a2b8ae76-b975-4082-84cf-8e4ea4e2fa6f",
+    "ts": "2026-01-22T08:18:31.948Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 204,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "d7a8ea16-6e2c-465f-8c93-bb787d5cff73",
+    "ts": "2026-01-22T08:18:31.946Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 199,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "1d6f70bf-5d1a-4130-95bf-af3e8783af61",
+    "ts": "2026-01-22T08:18:31.843Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 3,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "0dc11288-aecf-4a96-880b-42fdca654fb2",
+    "ts": "2026-01-22T08:18:31.588Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 59,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "c482d36b-6199-4979-ba4f-5f3125469fb5",
+    "ts": "2026-01-22T08:18:31.586Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 52,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "36a2aea1-8464-4565-8f95-1b71d782416b",
+    "ts": "2026-01-22T08:18:31.574Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 3,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "41302d41-08c2-46b2-ae77-88d1de1e5b35",
+    "ts": "2026-01-22T08:18:31.546Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 122,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "3a9e19a5-4d15-4ea9-b395-8e37cafe87f7",
+    "ts": "2026-01-22T08:18:31.544Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 117,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "d287249f-6de5-40c6-b99e-5998bdab3b20",
+    "ts": "2026-01-22T08:18:31.537Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 3,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "21159471-35a8-45a8-b746-dcd39bcd0f67",
+    "ts": "2026-01-22T08:18:31.509Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 146,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "fba26d69-c831-4cbb-86c6-b10b8776f250",
+    "ts": "2026-01-22T08:18:31.507Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 139,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "b6d8ca5b-7a03-435c-ad49-fa8c407e79b2",
+    "ts": "2026-01-22T08:18:31.436Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "50c7e71d-482d-482c-ae93-2dec3893ff04",
+    "ts": "2026-01-22T08:18:31.202Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 97,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "680b9d87-516b-4c50-adbc-950de5c3cb1d",
+    "ts": "2026-01-22T08:18:31.198Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 91,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "21284f20-292e-4a5e-9ddd-f5298131d485",
+    "ts": "2026-01-22T08:18:31.191Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 25,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "e2697d41-e3fb-4756-84bf-c1004c741b6d",
+    "ts": "2026-01-22T08:18:31.128Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 117,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "f4f442ff-1019-4586-b5d8-34ad783d2efd",
+    "ts": "2026-01-22T08:18:31.124Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 110,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "c64045a6-2570-4a45-8c83-6490f60de3b2",
+    "ts": "2026-01-22T08:18:31.116Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 5,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "3f678f27-d937-4a5f-b75a-63a0c60a2d60",
+    "ts": "2026-01-22T08:18:31.078Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 129,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "18f3faf0-8936-4826-a1f6-83c3ca3b687e",
+    "ts": "2026-01-22T08:18:31.074Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 121,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:31 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "4c37105b-6f03-4899-b0ee-e1f9286e0c89",
+    "ts": "2026-01-22T08:18:31.026Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "6541a3d0-28a8-46b2-8200-0607a1cd166e",
+    "ts": "2026-01-22T08:18:30.840Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 88,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "21077a97-5a46-430a-9184-a8946f724fcd",
+    "ts": "2026-01-22T08:18:30.838Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 83,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "897f3d4a-be92-4a1b-b2bd-b2a1c5cf314f",
+    "ts": "2026-01-22T08:18:30.831Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "26b539a7-40c2-4f7d-8510-784b3be46b54",
+    "ts": "2026-01-22T08:18:30.773Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 184,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "e9c24256-c5a1-45df-97df-7a3b191a7650",
+    "ts": "2026-01-22T08:18:30.770Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 179,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "0c005cc1-ef08-457a-af3c-2ab10deda96f",
+    "ts": "2026-01-22T08:18:30.764Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 4,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "a0a29caa-8e07-4769-8568-47f929f06a93",
+    "ts": "2026-01-22T08:18:30.710Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 174,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "cf7904f4-8e8f-452f-9979-99aebf60f153",
+    "ts": "2026-01-22T08:18:30.704Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 161,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "270ba1e1-8e52-455e-a3e1-16294fa86693",
+    "ts": "2026-01-22T08:18:30.605Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "6141a666-df83-4153-a6bc-5e3995976ce1",
+    "ts": "2026-01-22T08:18:30.410Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 67,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "b18860e8-643f-439c-b8e1-bfa5be548953",
+    "ts": "2026-01-22T08:18:30.408Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 61,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "3c69c35a-1cbe-4d70-b3eb-c594511ca810",
+    "ts": "2026-01-22T08:18:30.399Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "0514b62f-0fc8-4440-8a9c-bc21a50ad623",
+    "ts": "2026-01-22T08:18:30.370Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 161,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "eae88e38-abf3-4521-8162-566c28b6e3a7",
+    "ts": "2026-01-22T08:18:30.368Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 155,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "1fbc8995-52a8-4b8b-ae7b-277f5dbd82f8",
+    "ts": "2026-01-22T08:18:30.357Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 6,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "d57c98c2-b9a6-435d-ad2d-9c23845df492",
+    "ts": "2026-01-22T08:18:30.312Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 185,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "ed365617-b853-482b-926a-5c945eba1b48",
+    "ts": "2026-01-22T08:18:30.309Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 178,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:30 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "0e98e2b4-561f-4c8a-906d-14114d761daa",
+    "ts": "2026-01-22T08:18:30.230Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 5,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "d1a0ea2d-576e-4f5a-b480-22c8d53f2462",
+    "ts": "2026-01-22T08:18:29.993Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 80,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "28c50637-867d-4364-a47d-c904c3570d22",
+    "ts": "2026-01-22T08:18:29.988Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 69,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "d750993e-010b-4a93-98ff-248809b65a5c",
+    "ts": "2026-01-22T08:18:29.977Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "9cd15e61-f4e0-4779-b7a8-5119e3457106",
+    "ts": "2026-01-22T08:18:29.937Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 56,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "c21a0356-6105-4818-a852-02022dc9799b",
+    "ts": "2026-01-22T08:18:29.933Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 46,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "011f4c8a-92bc-4fe9-8264-e8d2eb85e77c",
+    "ts": "2026-01-22T08:18:29.922Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 3,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "02ea81e5-c03e-4975-803d-469dd4ba18f5",
+    "ts": "2026-01-22T08:18:29.777Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 165,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "9264f359-b9b1-4834-8e45-154698879ef6",
+    "ts": "2026-01-22T08:18:29.774Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 159,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "46944c1e-fa2c-4bea-8d3d-69d058da39a1",
+    "ts": "2026-01-22T08:18:29.765Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "972cafb2-46f7-4a27-94f0-5a9323d0d95a",
+    "ts": "2026-01-22T08:18:29.697Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 251,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "67d7a016-ea35-4539-82d0-de62482ba2c3",
+    "ts": "2026-01-22T08:18:29.692Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 242,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "adc4d4b4-2b06-4e2b-9e6f-40c3949ba547",
+    "ts": "2026-01-22T08:18:29.673Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 50,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "80b94bb3-2b38-4ca0-ae20-0b53a41e23f9",
+    "ts": "2026-01-22T08:18:29.560Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 232,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "57a49d78-9cc5-4d4f-a0e1-ac4929e5be30",
+    "ts": "2026-01-22T08:18:29.557Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 224,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "1c569171-de88-46e8-bc1d-08d1ce3f6754",
+    "ts": "2026-01-22T08:18:29.504Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 46,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "3afcf6d7-196e-47b7-a95a-2c22d6db1d94",
+    "ts": "2026-01-22T08:18:29.165Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 52,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "a458c9bd-e948-435c-b00a-610e57b17628",
+    "ts": "2026-01-22T08:18:29.163Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 46,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "faf7ec67-8698-44b9-96fe-7a5510320ee0",
+    "ts": "2026-01-22T08:18:29.154Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 0,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "5eb88a47-e344-43df-8f3c-ab96ce6e4a57",
+    "ts": "2026-01-22T08:18:29.132Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 100,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "0f12a4c7-b734-4057-b778-674c484fa1c7",
+    "ts": "2026-01-22T08:18:29.130Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 94,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "a126a619-7e19-4316-a2bb-82741c5c80e9",
+    "ts": "2026-01-22T08:18:29.121Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 4,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "8318c9d3-c273-41e0-8cea-133dd31b08ec",
+    "ts": "2026-01-22T08:18:29.097Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 131,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "adf2b20d-4cf9-4df7-a814-83f6cbef4723",
+    "ts": "2026-01-22T08:18:29.095Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 125,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:29 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "b6fd8d96-0ba2-4120-85a8-cac8134ca716",
+    "ts": "2026-01-22T08:18:29.065Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 27,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "97223eb3-325b-44d9-b447-f2c4e7dd87c8",
+    "ts": "2026-01-22T08:18:28.869Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 39,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "7fbb28fa-45a6-477d-b50e-60617efddfe5",
+    "ts": "2026-01-22T08:18:28.867Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 35,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:28 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "4572cec4-e6ae-4bbb-9bea-8f3ce8f80546",
+    "ts": "2026-01-22T08:18:28.861Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 0,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "fac8ec6a-4df2-44e6-be37-6e9e1951cfca",
+    "ts": "2026-01-22T08:18:28.819Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 81,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "3f094a58-5236-4f69-8056-5852c21d4e0a",
+    "ts": "2026-01-22T08:18:28.816Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 73,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:28 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "11780e19-8547-4f52-a24b-add25c3f2cfb",
+    "ts": "2026-01-22T08:18:28.804Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "3e400905-ca57-4954-b976-f44a6fdaa9e7",
+    "ts": "2026-01-22T08:18:28.681Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 101,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "f05aad40-e1cf-44a8-8760-7474d1c96c38",
+    "ts": "2026-01-22T08:18:28.677Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 91,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:28 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "e35a0b85-79f1-42cd-a83d-605e9a31e775",
+    "ts": "2026-01-22T08:18:28.665Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "44b5d661-f2a2-4f63-b2fd-77d6b2fb1b3d",
+    "ts": "2026-01-22T08:18:28.637Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 117,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "d9e1cec9-1055-4f4f-9329-f832dd4175f8",
+    "ts": "2026-01-22T08:18:28.635Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 113,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:28 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "ec6635b7-62db-416c-8cac-3073f858875d",
+    "ts": "2026-01-22T08:18:28.595Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 0,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "7d5a09ed-5931-4f2c-9283-4dcaf363c0a0",
+    "ts": "2026-01-22T08:18:28.422Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 91,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "7116674d-6f1a-42f2-bb3c-4514694fed37",
+    "ts": "2026-01-22T08:18:28.420Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 87,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:28 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "75195a10-6ab5-41db-ac22-47c617b7f6e8",
+    "ts": "2026-01-22T08:18:28.414Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "a44dccfb-2587-4f9d-a23d-2333fb0b9c29",
+    "ts": "2026-01-22T08:18:28.349Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 237,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "0122a8c5-cea3-4f59-b9e4-7761173ee629",
+    "ts": "2026-01-22T08:18:28.345Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 223,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:18:28 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "ff01ec8f-b5ae-4da9-9cdc-3e9a6431b8b2",
+    "ts": "2026-01-22T08:18:28.326Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 6,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "ae0dae96-9995-48d3-9214-ebae4acfcf07",
+    "ts": "2026-01-22T08:04:23.369Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 63,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "46acd404-326a-4f69-a4b9-1fb22b6098f2",
+    "ts": "2026-01-22T08:04:23.366Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 56,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:04:23 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "38aa1c46-9571-445d-8d56-6ae28342efc8",
+    "ts": "2026-01-22T08:04:23.354Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "da424e87-0a40-453c-b289-57de39e72204",
+    "ts": "2026-01-22T08:04:23.329Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 52,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "653ca324-ffed-49e2-b7b9-f0230652cd00",
+    "ts": "2026-01-22T08:04:23.327Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 47,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:04:23 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "a8a6f319-ce02-42e3-969a-4c88c20b588a",
+    "ts": "2026-01-22T08:04:23.319Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 2,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "3ea1f6c1-45c3-4f5d-8c19-9bbd9d7966fc",
+    "ts": "2026-01-22T08:04:02.168Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 90,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "83a556ba-028c-4246-8977-ee0af8f749ad",
+    "ts": "2026-01-22T08:04:02.165Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 84,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 08:04:02 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "d7eab960-0e70-4d75-94e5-1fb1218ada16",
+    "ts": "2026-01-22T08:04:02.157Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 4,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "f20c8618-ae8c-4978-86ad-8cf91daa1d00",
+    "ts": "2026-01-22T07:57:10.644Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 25,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "f2f6a87c-cff9-40d6-babd-0b97c080b0b9",
+    "ts": "2026-01-22T07:57:10.640Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 18,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 07:57:10 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "b3e794b8-09de-4887-a062-762d65f24260",
+    "ts": "2026-01-22T07:57:10.634Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 1,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "8b52e81d-c172-4d5d-9287-96081a6ca954",
+    "ts": "2026-01-22T07:57:02.124Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-17",
+    "duration_ms": 33,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "02419e86-019e-4c7d-b196-102329598c88",
+    "ts": "2026-01-22T07:57:02.121Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-17",
+    "status": 401,
+    "duration_ms": 25,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 07:57:02 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "c8d8edf1-796b-4cba-ac4d-a7fb2053100b",
+    "ts": "2026-01-22T07:57:02.109Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-17",
+    "status": 401,
+    "duration_ms": 4,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "6269b0d5-7f5e-4ebe-b5b8-9dbd82ac80d4",
+    "ts": "2026-01-22T07:56:56.705Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 218,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "68a117f4-5e31-4746-968a-e03aaf159af9",
+    "ts": "2026-01-22T07:56:56.700Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 206,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 07:56:56 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "1d87001d-d955-4d56-83c9-723fef8d89b3",
+    "ts": "2026-01-22T07:56:56.686Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 50,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "4a4f054c-01bf-45cd-8b8d-7c61da9f4914",
+    "ts": "2026-01-22T07:56:56.651Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 106,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "d8c28d23-be57-4ca5-9315-531a87ecdc31",
+    "ts": "2026-01-22T07:56:56.648Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 98,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 07:56:56 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "0fb2c404-0123-41ba-9695-56ba5a62d5e8",
+    "ts": "2026-01-22T07:56:56.638Z",
+    "direction": "incoming",
+    "method": "GET",
+    "url": "/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 4,
+    "reqHeaders": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate",
+      "accept-language": "*",
+      "authorization": "Bearer ***",
+      "cache-control": "no-cache",
+      "connection": "keep-alive",
+      "host": "localhost:3000",
+      "pragma": "no-cache",
+      "sec-fetch-mode": "cors",
+      "user-agent": "node",
+      "x-forwarded-for": "::1",
+      "x-forwarded-host": "localhost:3000",
+      "x-forwarded-port": "3000",
+      "x-forwarded-proto": "http"
+    },
+    "reqBody": "undefined",
+    "resBody": {
+      "missingCookie": "sp_token"
+    },
+    "error": "Not authenticated (missing access cookie)"
+  },
+  {
+    "id": "206f3890-d699-41b5-9a04-54b0eddaca88",
+    "ts": "2026-01-22T07:46:27.906Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 25,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "b8b66612-91bb-4e6f-a6c6-a246ef0a40e1",
+    "ts": "2026-01-22T07:46:27.903Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 20,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 07:46:27 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "faed4a55-3d48-48f8-8723-f310a66d0398",
+    "ts": "2026-01-22T07:46:19.781Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 175,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 401: Not authenticated"
+  },
+  {
+    "id": "8e689df9-129c-4aac-962e-5584ccbe3ca7",
+    "ts": "2026-01-22T07:46:19.778Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 401,
+    "duration_ms": 167,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "date": "Thu, 22 Jan 2026 07:46:19 GMT",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+    },
+    "reqBody": null,
+    "resBody": {
+      "message": "Not authenticated",
+      "missingCookie": "sp_token"
+    }
+  },
+  {
+    "id": "30e02217-ec40-4ae0-97cf-1a0b0bed2f49",
+    "ts": "2026-01-22T07:40:24.871Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "duration_ms": 84,
+    "reqHeaders": {},
+    "reqBody": null,
+    "resBody": "undefined",
+    "error": "API 500: <!DOCTYPE html><html><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head=\"\"/><style data-next-hide-fouc=\"true\">body{display:none}</style><noscript data-next-hide-fouc=\"true\"><style>body{display:block}</style></noscript><noscript data-n-css=\"\"></noscript><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_8ca6b690._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_shared_lib_8bac8163._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_client_5a8a528e._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_b3fb3b5f._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_app_72f3d36f.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Bnext%5D_entry_page-loader_ts_742e4b53._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_react-dom_4411d9bd._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_7f09fef0._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Broot-of-the-server%5D__45f039c3._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/pages__app_2da965e7._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/turbopack-pages__app_0fce199e._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_shared_lib_9a2a7093._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_a183fb77._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_error_1cfbb379.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Bnext%5D_entry_page-loader_ts_43b523b5._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Broot-of-the-server%5D__092393de._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/pages__error_2da965e7._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/turbopack-pages__error_af01c4e3._.js\" defer=\"\"></script><script src=\"/_next/static/development/_ssgManifest.js\" defer=\"\"></script><script src=\"/_next/static/development/_buildManifest.js\" defer=\"\"></script><noscript id=\"__next_css__DO_NOT_USE__\"></noscript></head><body><div id=\"__next\"></div><script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"statusCode\":500,\"hostname\":\"localhost\"}},\"page\":\"/_error\",\"query\":{\"date\":\"2026-01-22\"},\"buildId\":\"development\",\"isFallback\":false,\"err\":{\"name\":\"Error\",\"source\":\"server\",\"message\":\"./src/app/api/logs/export/route.ts:3:1\\nExport exportLogsToFile doesn't exist in target module\\n  1 | // src/app/api/logs/export/route.ts\\n  2 | import { NextResponse } from \\\"next/server\\\";\\n\\u003e 3 | import { exportLogsToFile, filterLogs, readLogs } from \\\"@/lib/request-logger\\\";\\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  4 | import path from \\\"node:path\\\";\\n  5 |\\n  6 | export const dynamic = \\\"force-dynamic\\\";\\n\\nThe export exportLogsToFile was not found in module [project]/src/lib/request-logger.ts [app-route] (ecmascript).\\nDid you mean to import readLogs?\\nAll exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.\\n\\n\",\"stack\":\"Error: ./src/app/api/logs/export/route.ts:3:1\\nExport \\u001b[32mexportLogsToFile\\u001b[39m doesn't exist in target module\\n\\u001b[0m \\u001b[90m 1 |\\u001b[39m \\u001b[90m// src/app/api/logs/export/route.ts\\u001b[39m\\n \\u001b[90m 2 |\\u001b[39m \\u001b[36mimport\\u001b[39m { \\u001b[33mNextResponse\\u001b[39m } \\u001b[36mfrom\\u001b[39m \\u001b[32m\\\"next/server\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\n\\u001b[31m\\u001b[1m\\u003e\\u001b[22m\\u001b[39m\\u001b[90m 3 |\\u001b[39m \\u001b[36mimport\\u001b[39m { exportLogsToFile\\u001b[33m,\\u001b[39m filterLogs\\u001b[33m,\\u001b[39m readLogs } \\u001b[36mfrom\\u001b[39m \\u001b[32m\\\"@/lib/request-logger\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m   |\\u001b[39m \\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\n \\u001b[90m 4 |\\u001b[39m \\u001b[36mimport\\u001b[39m path \\u001b[36mfrom\\u001b[39m \\u001b[32m\\\"node:path\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m 5 |\\u001b[39m\\n \\u001b[90m 6 |\\u001b[39m \\u001b[36mexport\\u001b[39m \\u001b[36mconst\\u001b[39m dynamic \\u001b[33m=\\u001b[39m \\u001b[32m\\\"force-dynamic\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\u001b[0m\\n\\nThe export \\u001b[32mexportLogsToFile\\u001b[39m was not found in module \\u001b[1m\\u001b[31m[project]/src/lib/request-logger.ts [app-route] (ecmascript)\\u001b[39m\\u001b[22m.\\nDid you mean to import \\u001b[32mreadLogs\\u001b[39m?\\nAll exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.\\n\\n\\n    at Object.getCompilationErrors (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\dev\\\\hot-reloader-turbopack.js:1008:59)\\n    at DevBundlerService.getCompilationError (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\lib\\\\dev-bundler-service.js:44:55)\\n    at DevServer.getCompilationError (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\dev\\\\next-dev-server.js:706:42)\\n    at DevServer.findPageComponents (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\dev\\\\next-dev-server.js:676:43)\\n    at async DevServer.renderErrorToResponseImpl (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\base-server.js:1713:26)\"},\"gip\":true,\"scriptLoader\":[]}</script></body></html>"
+  },
+  {
+    "id": "a51bcf87-808c-4729-9738-ca666f78a59b",
+    "ts": "2026-01-22T07:40:24.864Z",
+    "direction": "outgoing",
+    "method": "GET",
+    "url": "http://localhost:3000/api/buyer/today-stats?date=2026-01-22",
+    "status": 500,
+    "duration_ms": 71,
+    "reqHeaders": {
+      "authorization": "Bearer ***"
+    },
+    "resHeaders": {
+      "cache-control": "no-store, must-revalidate",
+      "connection": "keep-alive",
+      "content-encoding": "gzip",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Thu, 22 Jan 2026 07:40:24 GMT",
+      "etag": "\"z8sy77fuwy6n6\"",
+      "keep-alive": "timeout=5",
+      "transfer-encoding": "chunked",
+      "vary": "Accept-Encoding",
+      "x-powered-by": "Next.js"
+    },
+    "reqBody": null,
+    "resBody": "<!DOCTYPE html><html><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head=\"\"/><style data-next-hide-fouc=\"true\">body{display:none}</style><noscript data-next-hide-fouc=\"true\"><style>body{display:block}</style></noscript><noscript data-n-css=\"\"></noscript><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_8ca6b690._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_shared_lib_8bac8163._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_client_5a8a528e._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_b3fb3b5f._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_app_72f3d36f.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Bnext%5D_entry_page-loader_ts_742e4b53._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_react-dom_4411d9bd._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_7f09fef0._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Broot-of-the-server%5D__45f039c3._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/pages__app_2da965e7._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/turbopack-pages__app_0fce199e._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_shared_lib_9a2a7093._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_a183fb77._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_error_1cfbb379.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Bnext%5D_entry_page-loader_ts_43b523b5._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/%5Broot-of-the-server%5D__092393de._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/pages__error_2da965e7._.js\" defer=\"\"></script><script src=\"/_next/static/chunks/turbopack-pages__error_af01c4e3._.js\" defer=\"\"></script><script src=\"/_next/static/development/_ssgManifest.js\" defer=\"\"></script><script src=\"/_next/static/development/_buildManifest.js\" defer=\"\"></script><noscript id=\"__next_css__DO_NOT_USE__\"></noscript></head><body><div id=\"__next\"></div><script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"statusCode\":500,\"hostname\":\"localhost\"}},\"page\":\"/_error\",\"query\":{\"date\":\"2026-01-22\"},\"buildId\":\"development\",\"isFallback\":false,\"err\":{\"name\":\"Error\",\"source\":\"server\",\"message\":\"./src/app/api/logs/export/route.ts:3:1\\nExport exportLogsToFile doesn't exist in target module\\n  1 | // src/app/api/logs/export/route.ts\\n  2 | import { NextResponse } from \\\"next/server\\\";\\n\\u003e 3 | import { exportLogsToFile, filterLogs, readLogs } from \\\"@/lib/request-logger\\\";\\n    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  4 | import path from \\\"node:path\\\";\\n  5 |\\n  6 | export const dynamic = \\\"force-dynamic\\\";\\n\\nThe export exportLogsToFile was not found in module [project]/src/lib/request-logger.ts [app-route] (ecmascript).\\nDid you mean to import readLogs?\\nAll exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.\\n\\n\",\"stack\":\"Error: ./src/app/api/logs/export/route.ts:3:1\\nExport \\u001b[32mexportLogsToFile\\u001b[39m doesn't exist in target module\\n\\u001b[0m \\u001b[90m 1 |\\u001b[39m \\u001b[90m// src/app/api/logs/export/route.ts\\u001b[39m\\n \\u001b[90m 2 |\\u001b[39m \\u001b[36mimport\\u001b[39m { \\u001b[33mNextResponse\\u001b[39m } \\u001b[36mfrom\\u001b[39m \\u001b[32m\\\"next/server\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\n\\u001b[31m\\u001b[1m\\u003e\\u001b[22m\\u001b[39m\\u001b[90m 3 |\\u001b[39m \\u001b[36mimport\\u001b[39m { exportLogsToFile\\u001b[33m,\\u001b[39m filterLogs\\u001b[33m,\\u001b[39m readLogs } \\u001b[36mfrom\\u001b[39m \\u001b[32m\\\"@/lib/request-logger\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m   |\\u001b[39m \\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\n \\u001b[90m 4 |\\u001b[39m \\u001b[36mimport\\u001b[39m path \\u001b[36mfrom\\u001b[39m \\u001b[32m\\\"node:path\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m 5 |\\u001b[39m\\n \\u001b[90m 6 |\\u001b[39m \\u001b[36mexport\\u001b[39m \\u001b[36mconst\\u001b[39m dynamic \\u001b[33m=\\u001b[39m \\u001b[32m\\\"force-dynamic\\\"\\u001b[39m\\u001b[33m;\\u001b[39m\\u001b[0m\\n\\nThe export \\u001b[32mexportLogsToFile\\u001b[39m was not found in module \\u001b[1m\\u001b[31m[project]/src/lib/request-logger.ts [app-route] (ecmascript)\\u001b[39m\\u001b[22m.\\nDid you mean to import \\u001b[32mreadLogs\\u001b[39m?\\nAll exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.\\n\\n\\n    at Object.getCompilationErrors (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\dev\\\\hot-reloader-turbopack.js:1008:59)\\n    at DevBundlerService.getCompilationError (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\lib\\\\dev-bundler-service.js:44:55)\\n    at DevServer.getCompilationError (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\dev\\\\next-dev-server.js:706:42)\\n    at DevServer.findPageComponents (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\dev\\\\next-dev-server.js:676:43)\\n    at async DevServer.renderErrorToResponseImpl (C:\\\\Users\\\\abdul\\\\Desktop\\\\Logistics\\\\Logistics\\\\node_modules\\\\next\\\\dist\\\\server\\\\base-server.js:1713:26)\"},\"gip\":true,\"scriptLoader\":[]}</script></body></html>"
+  }
+]
