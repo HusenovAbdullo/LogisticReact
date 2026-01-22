@@ -3,17 +3,20 @@ import "server-only";
 
 import { cookies, headers } from "next/headers";
 import { AUTH_COOKIE_NAME } from "@/lib/auth";
-import { appendLog, type HttpMethod as _ } from "@/lib/request-logger"; // type nomi to‘qnashmasin
 import { appendLog as appendRequestLog } from "@/lib/request-logger";
 
+/* =========================
+ * Types
+ * ========================= */
 export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD";
 
 export type FetchOptions = Omit<RequestInit, "method" | "body" | "headers"> & {
   method?: HttpMethod;
   headers?: HeadersInit;
-  auth?: boolean;
+  auth?: boolean; // token/cookie kerak bo'lsa true
   body?: unknown;
 
+  // logging
   log?: boolean;
   tag?: string;
 };
@@ -60,22 +63,22 @@ function shouldHaveBody(method: HttpMethod) {
 function normalize(options: FetchOptions) {
   const method: HttpMethod = options.method ?? "GET";
   const h = new Headers(options.headers);
-  const body = options.body;
+  const originalBody = options.body;
 
-  if (!shouldHaveBody(method) || body == null) {
+  if (!shouldHaveBody(method) || originalBody == null) {
     return { method, headers: h, body: undefined as BodyInit | undefined };
   }
 
-  if (isFormDataBody(body)) {
-    return { method, headers: h, body };
+  if (isFormDataBody(originalBody)) {
+    return { method, headers: h, body: originalBody };
   }
 
-  if (isPlainObject(body)) {
+  if (isPlainObject(originalBody)) {
     if (!h.has("Content-Type")) h.set("Content-Type", "application/json");
-    return { method, headers: h, body: JSON.stringify(body) };
+    return { method, headers: h, body: JSON.stringify(originalBody) };
   }
 
-  return { method, headers: h, body: body as BodyInit };
+  return { method, headers: h, body: originalBody as BodyInit };
 }
 
 function toAbsoluteUrl(base: string, p: string) {
@@ -107,17 +110,24 @@ function bodyForLog(originalBody: unknown) {
   return originalBody ?? null;
 }
 
-async function applyAuth(headersObj: Headers, auth?: boolean) {
+/**
+ * Backend fetch (external) uchun:
+ * - Cookie'dan AUTH_COOKIE_NAME tokenni olib Authorization: Bearer qo'yadi.
+ */
+async function applyAuthHeader(headersObj: Headers, auth?: boolean) {
   if (!auth) return;
-  const c = await cookies();
+  const c = await cookies(); // Next 15/16: Promise
   const token = c.get(AUTH_COOKIE_NAME)?.value;
   if (token && !headersObj.has("Authorization")) {
     headersObj.set("Authorization", `Bearer ${token}`);
   }
 }
 
+/**
+ * Internal fetch (Next API routes) uchun origin yasash.
+ */
 async function getOrigin() {
-  const h = await headers();
+  const h = await headers(); // Next 15/16: Promise
   const proto = h.get("x-forwarded-proto") ?? "http";
   const host = h.get("x-forwarded-host") ?? h.get("host");
   if (!host) return "http://localhost:3000";
@@ -138,7 +148,8 @@ async function buildError(res: Response) {
   const body = await readBodySafe(res);
   if (body && typeof body === "object") {
     const j: any = body;
-    const msg = j?.message ?? j?.detail ?? j?.error ?? j?.title ?? JSON.stringify(j);
+    const msg =
+      j?.message ?? j?.detail ?? j?.error ?? j?.title ?? JSON.stringify(j);
     return new Error(`API ${res.status}: ${msg}`);
   }
   const text = typeof body === "string" ? body : "";
@@ -174,7 +185,9 @@ async function logOutgoing(p: {
       duration_ms: p.duration_ms,
       reqHeaders: maskHeadersForLog(p.reqHeaders),
       reqBody: bodyForLog(p.reqBody),
-      resHeaders: p.resHeaders ? Object.fromEntries(p.resHeaders.entries()) : undefined,
+      resHeaders: p.resHeaders
+        ? Object.fromEntries(p.resHeaders.entries())
+        : undefined,
       resBody: p.resBody,
       error: p.error,
       tag: p.tag,
@@ -190,7 +203,6 @@ async function logOutgoing(p: {
 async function doFetch<T>(url: string, options: FetchOptions): Promise<T> {
   const start = Date.now();
   const { method, headers: h, body } = normalize(options);
-  await applyAuth(h, options.auth);
 
   const logEnabled = pickLogEnabled(options.log);
 
@@ -204,7 +216,6 @@ async function doFetch<T>(url: string, options: FetchOptions): Promise<T> {
     });
 
     const duration_ms = Date.now() - start;
-
     const resBodyForLog = logEnabled ? await readBodySafe(res) : undefined;
 
     if (!res.ok) {
@@ -261,15 +272,46 @@ async function doFetch<T>(url: string, options: FetchOptions): Promise<T> {
 }
 
 /* =========================
- * Public
+ * Public: Backend fetch
  * ========================= */
-export async function serverFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
+export async function serverFetch<T>(
+  path: string,
+  options: FetchOptions = {},
+): Promise<T> {
   const url = toAbsoluteUrl(API_BASE, path);
-  return await doFetch<T>(url, options);
+
+  // backendga ketadigan requestga Authorization qo'yamiz
+  const { headers: h } = normalize(options);
+  await applyAuthHeader(h, options.auth);
+
+  return await doFetch<T>(url, {
+    ...options,
+    headers: h,
+  });
 }
 
-export async function serverFetchInternal<T>(path: string, options: FetchOptions = {}): Promise<T> {
+/* =========================
+ * Public: Internal fetch (Next API routes)
+ * ========================= */
+export async function serverFetchInternal<T>(
+  path: string,
+  options: FetchOptions = {},
+): Promise<T> {
   const origin = await getOrigin();
   const url = toAbsoluteUrl(origin, path);
-  return await doFetch<T>(url, options);
+
+  // ✅ Next 15/16: incoming request cookie headerini forward qilamiz
+  const reqHeaders = await headers();
+  const cookie = reqHeaders.get("cookie") ?? "";
+
+  const h = new Headers(options.headers);
+
+  if (options.auth && cookie && !h.has("cookie")) {
+    h.set("cookie", cookie);
+  }
+
+  return await doFetch<T>(url, {
+    ...options,
+    headers: h,
+  });
 }

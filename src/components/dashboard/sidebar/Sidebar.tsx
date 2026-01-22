@@ -45,10 +45,10 @@ export function Sidebar({
         href: ROUTES.dashboard,
         label: t("dashboard"),
         icon: IconGrid,
-        children: [
-          { href: ROUTES.dashboard1, label: t("dashboard_1") },
-          { href: ROUTES.dashboard2, label: t("dashboard_2") },
-        ],
+        // children: [
+        //   { href: ROUTES.dashboard1, label: t("dashboard_1") },
+        //   { href: ROUTES.dashboard2, label: t("dashboard_2") },
+        // ],
       },
       { key: "shipments", href: ROUTES.orders, label: t("shipments"), icon: IconBox },
       { key: "delivery", href: ROUTES.warehouse, label: t("delivery"), icon: IconTruck },
