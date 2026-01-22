@@ -70,5 +70,9 @@
   "weather_drizzle": "Морось",
   "weather_rain": "Дождь",
   "weather_snow": "Снег",
-  "weather_thunderstorm": "Гроза"
+  "weather_thunderstorm": "Гроза",
+
+  "logout": "Выйти",
+"logging_out": "Выходим..."
+
 }

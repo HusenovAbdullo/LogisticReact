@@ -29,39 +29,41 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const canSubmit = username.trim().length >= 1 && password.trim().length >= 0;
+  const canSubmit = username.trim().length >= 1 && password.trim().length >= 1;
 
   async function onSubmit(e: React.FormEvent) {
-  e.preventDefault();
-  if (!canSubmit || loading) return;
+    e.preventDefault();
 
-  setLoading(true);
-  setError(null);
-
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // backend nima kutsa, shuni yuborasiz:
-      body: JSON.stringify({ login: username.trim(), password }),
-    });
-
-    const data = await res.json().catch(() => ({}));
-
-    if (!res.ok) {
-      throw new Error(data?.error || "Login yoki parol noto‘g‘ri");
+    if (!username.trim() || !password.trim()) {
+      setError("Login va parol majburiy");
+      return;
     }
 
-    // Tokenlar clientga kelmaydi — faqat role keladi
-    // SSR tarafda cookie o‘rnatildi, endi redirect:
-    router.replace(nextUrl);
-  } catch (e: any) {
-    setError(e?.message ?? "Xatolik yuz berdi.");
-  } finally {
-    setLoading(false);
-  }
-}
+    try {
+      setError(null);
+      setLoading(true);
 
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          login: username.trim(),
+          password: password.trim(),
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setError(data?.error || "Login xatolik");
+        return;
+      }
+
+      router.push(nextUrl); // ✅
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#eef2ff] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
@@ -85,7 +87,11 @@ export default function LoginPage() {
               title="Tema"
               aria-label="Tema"
             >
-              {safeTheme === "light" ? <IconSun className="h-5 w-5" /> : <IconMoon className="h-5 w-5" />}
+              {safeTheme === "light" ? (
+                <IconSun className="h-5 w-5" />
+              ) : (
+                <IconMoon className="h-5 w-5" />
+              )}
             </button>
           </div>
         </div>
@@ -111,14 +117,24 @@ export default function LoginPage() {
                 Tizimga kirish
               </h1>
               <p className="mt-2 text-center text-sm leading-6 text-slate-600 dark:text-slate-300">
-                Login va parolingizni kiriting. Xavfsizlik uchun ma’lumotlaringiz himoyalanadi.
+                Login va parolingizni kiriting. Xavfsizlik uchun
+                ma’lumotlaringiz himoyalanadi.
               </p>
 
               {/* Mini trust row */}
               <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-                <Chip icon={<IconShield className="h-4 w-4" />} text="Xavfsiz kirish" />
-                <Chip icon={<IconBolt className="h-4 w-4" />} text="Tezkor ishlash" />
-                <Chip icon={<IconLayers className="h-4 w-4" />} text="Moslashuvchan dizayn" />
+                <Chip
+                  icon={<IconShield className="h-4 w-4" />}
+                  text="Xavfsiz kirish"
+                />
+                <Chip
+                  icon={<IconBolt className="h-4 w-4" />}
+                  text="Tezkor ishlash"
+                />
+                <Chip
+                  icon={<IconLayers className="h-4 w-4" />}
+                  text="Moslashuvchan dizayn"
+                />
               </div>
             </div>
 
@@ -166,10 +182,16 @@ export default function LoginPage() {
                       type="button"
                       onClick={() => setShowPass((v) => !v)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-                      aria-label={showPass ? "Parolni yashirish" : "Parolni ko‘rsatish"}
+                      aria-label={
+                        showPass ? "Parolni yashirish" : "Parolni ko‘rsatish"
+                      }
                       title={showPass ? "Yashirish" : "Ko‘rsatish"}
                     >
-                      {showPass ? <IconEyeOff className="h-5 w-5" /> : <IconEye className="h-5 w-5" />}
+                      {showPass ? (
+                        <IconEyeOff className="h-5 w-5" />
+                      ) : (
+                        <IconEye className="h-5 w-5" />
+                      )}
                     </button>
                   </div>
                 </Field>
@@ -238,7 +260,9 @@ export default function LoginPage() {
                 {/* Secondary buttons */}
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <GhostButton
-                    onClick={() => alert("Google SSO keyin integratsiya qilinadi")}
+                    onClick={() =>
+                      alert("Google SSO keyin integratsiya qilinadi")
+                    }
                     icon={<IconGoogle className="h-5 w-5" />}
                   >
                     Google bilan
@@ -285,14 +309,17 @@ function useTheme() {
   useEffect(() => {
     setMounted(true);
 
-    const saved = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    const saved =
+      typeof window !== "undefined" ? localStorage.getItem("theme") : null;
     if (saved === "light" || saved === "dark") {
       setThemeState(saved);
       applyTheme(saved);
       return;
     }
 
-    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
+    const prefersDark = window.matchMedia?.(
+      "(prefers-color-scheme: dark)",
+    )?.matches;
     const sys: Theme = prefersDark ? "dark" : "light";
     setThemeState(sys);
     applyTheme(sys);
@@ -390,8 +417,19 @@ function GhostButton({
 
 function Spinner({ className }: { className?: string }) {
   return (
-    <svg className={["animate-spin", className].join(" ")} viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.25" strokeWidth="3" />
+    <svg
+      className={["animate-spin", className].join(" ")}
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeOpacity="0.25"
+        strokeWidth="3"
+      />
       <path
         d="M21 12a9 9 0 0 0-9-9"
         stroke="currentColor"
@@ -408,7 +446,12 @@ function Spinner({ className }: { className?: string }) {
 // Tashkilot logosi: o‘zingizning SVG’ingiz bilan almashtiring
 function OrgLogoMark({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M7 17V7l10 10V7"
         stroke="currentColor"
@@ -422,8 +465,17 @@ function OrgLogoMark({ className }: { className?: string }) {
 
 function IconSun({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" strokeWidth="2" />
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <path
         d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
         stroke="currentColor"
@@ -436,7 +488,12 @@ function IconSun({ className }: { className?: string }) {
 
 function IconMoon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M21 13.2A7.5 7.5 0 0 1 10.8 3 9 9 0 1 0 21 13.2Z"
         stroke="currentColor"
@@ -449,16 +506,35 @@ function IconMoon({ className }: { className?: string }) {
 
 function IconUser({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M16 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0Z" stroke="currentColor" strokeWidth="2" />
-      <path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M16 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M4 21a8 8 0 0 1 16 0"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 function IconKey({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M7 14a5 5 0 1 1 3.9 1.9L9 18H7v-2H5v-2l2-2Z"
         stroke="currentColor"
@@ -466,28 +542,52 @@ function IconKey({ className }: { className?: string }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M15 9h.01" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      <path
+        d="M15 9h.01"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 function IconEye({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"
         stroke="currentColor"
         strokeWidth="2"
       />
-      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
     </svg>
   );
 }
 
 function IconEyeOff({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M3 3l18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 3l18 18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
       <path
         d="M10.6 10.6a3 3 0 0 0 4.2 4.2"
         stroke="currentColor"
@@ -512,21 +612,36 @@ function IconEyeOff({ className }: { className?: string }) {
 
 function IconShield({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M12 2 20 6v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinejoin="round"
       />
-      <path d="m9 12 2 2 4-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="m9 12 2 2 4-5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 function IconBolt({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z"
         stroke="currentColor"
@@ -539,21 +654,36 @@ function IconBolt({ className }: { className?: string }) {
 
 function IconLayers({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="m12 3 9 6-9 6-9-6 9-6Z"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinejoin="round"
       />
-      <path d="m3 15 9 6 9-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+      <path
+        d="m3 15 9 6 9-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
 function IconGoogle({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M21.6 12.2c0-.7-.1-1.2-.2-1.8H12v3.4h5.4c-.1.9-.8 2.2-2.2 3.1v2.3h3.6c2.1-2 2.8-4.8 2.8-8Z"
         fill="currentColor"
@@ -580,9 +710,24 @@ function IconGoogle({ className }: { className?: string }) {
 
 function IconPhone({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M7 2h10v20H7V2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M10 19h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M7 2h10v20H7V2Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10 19h4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

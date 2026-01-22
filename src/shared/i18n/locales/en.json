@@ -70,5 +70,9 @@
   "weather_drizzle": "Drizzle",
   "weather_rain": "Rain",
   "weather_snow": "Snow",
-  "weather_thunderstorm": "Thunderstorm"
+  "weather_thunderstorm": "Thunderstorm",
+
+  "logout": "Logout",
+"logging_out": "Signing out..."
+
 }

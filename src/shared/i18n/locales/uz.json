@@ -70,5 +70,8 @@
   "weather_drizzle": "Mayda yomg‘ir",
   "weather_rain": "Yomg‘ir",
   "weather_snow": "Qor",
-  "weather_thunderstorm": "Momaqaldiroq"
+  "weather_thunderstorm": "Momaqaldiroq",
+  "logout": "Chiqish",
+"logging_out": "Chiqilmoqda..."
+
 }

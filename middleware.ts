@@ -4,7 +4,6 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // faqat dashboard guruhini himoyalaymiz
   const isProtected =
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/orders") ||
@@ -13,7 +12,8 @@ export function middleware(req: NextRequest) {
 
   if (!isProtected) return NextResponse.next();
 
-  const access = req.cookies.get("sp_token")?.value;
+  const AUTH_COOKIE = process.env.AUTH_COOKIE || "sp_token";
+  const access = req.cookies.get(AUTH_COOKIE)?.value;
 
   if (!access) {
     const url = req.nextUrl.clone();
