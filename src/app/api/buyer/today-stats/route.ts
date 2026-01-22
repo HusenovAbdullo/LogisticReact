@@ -7,44 +7,10 @@ import {
   refreshAccessTokenSSR,
 } from "@/lib/auth";
 import { appendLog } from "@/lib/request-logger";
+import { serverFetch } from "@/shared/api/http";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-/* =========================
- * Env
- * ========================= */
-const RAW_BACKEND_URL =
-  process.env.BACKEND_URL ||
-  process.env.API_BASE_URL ||
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "";
-
-function cleanBaseUrl(u: string) {
-  return (u || "").replace(/\/+$/, "");
-}
-
-const BACKEND_URL = RAW_BACKEND_URL ? cleanBaseUrl(RAW_BACKEND_URL) : "";
-
-/* =========================
- * Helpers
- * ========================= */
-function safeParse(text: string) {
-  if (!text) return null;
-  try {
-    return JSON.parse(text);
-  } catch {
-    return text;
-  }
-}
-
-function buildUpstreamUrl(date: string) {
-  const qs = new URLSearchParams();
-  if (date) qs.set("date", date);
-  // agar date bo‘sh bo‘lsa ham endpoint ishlashi mumkin
-  const q = qs.toString();
-  return `${BACKEND_URL}/api/v1/admin/orders/today-stats/${q ? `?${q}` : ""}`;
-}
 
 function maskHeadersForLog(h: HeadersInit) {
   const H = new Headers(h);
@@ -58,57 +24,6 @@ function maskHeadersForLog(h: HeadersInit) {
   return out;
 }
 
-async function fetchTodayStats(date: string, token: string) {
-  const url = buildUpstreamUrl(date);
-  const start = Date.now();
-
-  const reqHeaders: HeadersInit = {
-    accept: "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-
-  try {
-    const upstream = await fetch(url, {
-      method: "GET",
-      headers: reqHeaders,
-      cache: "no-store",
-    });
-
-    const text = await upstream.text().catch(() => "");
-    const data = safeParse(text);
-
-    // OUTGOING log (backend)
-    appendLog({
-      direction: "outgoing",
-      method: "GET",
-      url,
-      status: upstream.status,
-      duration_ms: Date.now() - start,
-      reqHeaders: maskHeadersForLog(reqHeaders),
-      resHeaders: Object.fromEntries(upstream.headers.entries()),
-      resBody: data,
-    });
-
-    return { status: upstream.status, data };
-  } catch (e: any) {
-    // OUTGOING log (fetch error)
-    appendLog({
-      direction: "outgoing",
-      method: "GET",
-      url,
-      status: 0,
-      duration_ms: Date.now() - start,
-      reqHeaders: maskHeadersForLog(reqHeaders),
-      error: e?.message ?? "fetch_failed",
-    });
-
-    throw e;
-  }
-}
-
-/* =========================
- * Route
- * ========================= */
 export async function GET(req: Request) {
   const start = Date.now();
   const { searchParams } = new URL(req.url);
@@ -116,21 +31,7 @@ export async function GET(req: Request) {
 
   const internalUrl = `/api/buyer/today-stats${date ? `?date=${encodeURIComponent(date)}` : ""}`;
 
-  if (!BACKEND_URL) {
-    appendLog({
-      direction: "incoming",
-      method: "GET",
-      url: internalUrl,
-      status: 500,
-      duration_ms: Date.now() - start,
-      reqHeaders: maskHeadersForLog(req.headers),
-      error: "BACKEND_URL not set",
-    });
-
-    return NextResponse.json({ error: "BACKEND_URL o'rnatilmagan" }, { status: 500 });
-  }
-
-  // 1) access token
+  // 1) access token cookie borligini tekshiramiz (auth true bo‘lsa serverFetch ham qo‘shadi)
   let token = await getAccessTokenSSR();
   if (!token) {
     appendLog({
@@ -142,6 +43,7 @@ export async function GET(req: Request) {
       reqHeaders: maskHeadersForLog(req.headers),
       error: "Not authenticated (missing access cookie)",
       resBody: { missingCookie: AUTH_COOKIE_NAME },
+      tag: "buyer.todayStats",
     });
 
     return NextResponse.json(
@@ -150,66 +52,106 @@ export async function GET(req: Request) {
     );
   }
 
-  // 2) first attempt
-  let result: { status: number; data: any };
+  // backend call (serverFetch outgoing log qiladi)
+  const callBackend = async () => {
+    return await serverFetch<any>(
+      `/api/v1/admin/orders/today-stats/?date=${encodeURIComponent(date)}`,
+      {
+        method: "GET",
+        auth: true,
+        tag: "buyer.todayStats",
+      },
+    );
+  };
+
   try {
-    result = await fetchTodayStats(date, token);
-  } catch (e: any) {
+    const data = await callBackend();
+
     appendLog({
       direction: "incoming",
       method: "GET",
       url: internalUrl,
-      status: 502,
+      status: 200,
       duration_ms: Date.now() - start,
       reqHeaders: maskHeadersForLog(req.headers),
-      error: e?.message ?? "backend_unreachable",
+      resBody: data,
+      tag: "buyer.todayStats",
     });
 
-    return NextResponse.json(
-      { error: "Backend bilan ulanishda xatolik", detail: e?.message ?? null },
-      { status: 502 },
-    );
-  }
+    return NextResponse.json(data, { status: 200 });
+  } catch (e: any) {
+    // serverFetch error message: "API 401: ..."
+    const msg = String(e?.message ?? "");
+    const is401 = msg.includes("API 401");
 
-  // 3) 401 -> refresh + retry (once)
-  if (result.status === 401) {
-    const newToken = await refreshAccessTokenSSR();
+    if (is401) {
+      const newToken = await refreshAccessTokenSSR();
 
-    if (newToken) {
-      token = newToken;
-      try {
-        result = await fetchTodayStats(date, token);
-      } catch (e: any) {
+      if (newToken) {
+        try {
+          const data = await callBackend();
+
+          appendLog({
+            direction: "incoming",
+            method: "GET",
+            url: internalUrl,
+            status: 200,
+            duration_ms: Date.now() - start,
+            reqHeaders: maskHeadersForLog(req.headers),
+            resBody: data,
+            tag: "buyer.todayStats",
+          });
+
+          return NextResponse.json(data, { status: 200 });
+        } catch (e2: any) {
+          appendLog({
+            direction: "incoming",
+            method: "GET",
+            url: internalUrl,
+            status: 502,
+            duration_ms: Date.now() - start,
+            reqHeaders: maskHeadersForLog(req.headers),
+            error: e2?.message ?? "backend_failed_after_refresh",
+            tag: "buyer.todayStats",
+          });
+
+          return NextResponse.json(
+            { error: "Backend bilan ulanishda xatolik", detail: e2?.message ?? null },
+            { status: 502 },
+          );
+        }
+      } else {
+        await clearAuthCookiesSSR();
+
         appendLog({
           direction: "incoming",
           method: "GET",
           url: internalUrl,
-          status: 502,
+          status: 401,
           duration_ms: Date.now() - start,
           reqHeaders: maskHeadersForLog(req.headers),
-          error: e?.message ?? "backend_unreachable_after_refresh",
+          error: "Refresh token missing/invalid",
+          tag: "buyer.todayStats",
         });
 
-        return NextResponse.json(
-          { error: "Backend bilan ulanishda xatolik", detail: e?.message ?? null },
-          { status: 502 },
-        );
+        return NextResponse.json({ message: "Session expired" }, { status: 401 });
       }
-    } else {
-      await clearAuthCookiesSSR();
     }
+
+    appendLog({
+      direction: "incoming",
+      method: "GET",
+      url: internalUrl,
+      status: 500,
+      duration_ms: Date.now() - start,
+      reqHeaders: maskHeadersForLog(req.headers),
+      error: msg || "unknown_error",
+      tag: "buyer.todayStats",
+    });
+
+    return NextResponse.json(
+      { error: "Xatolik", detail: msg || null },
+      { status: 500 },
+    );
   }
-
-  // INCOMING log (final response)
-  appendLog({
-    direction: "incoming",
-    method: "GET",
-    url: internalUrl,
-    status: result.status,
-    duration_ms: Date.now() - start,
-    reqHeaders: maskHeadersForLog(req.headers),
-    resBody: result.data,
-  });
-
-  return NextResponse.json(result.data, { status: result.status });
 }

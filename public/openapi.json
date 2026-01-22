@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Logistics API (full from code)",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "This app (Next.js)"
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "POST /api/auth/login",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "POST /api/auth/logout",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/today-stats": {
+      "get": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "GET /api/buyer/today-stats",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/logs/export": {
+      "get": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "GET /api/logs/export",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/logs/file": {
+      "get": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "GET /api/logs/file",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/logs": {
+      "get": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "GET /api/logs",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reverse-geocode": {
+      "get": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "GET /api/reverse-geocode",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/__outgoing__/api/v1/admin/orders/today-stats/?date=${encodeURIComponent(date)}": {
+      "get": {
+        "tags": [
+          "outgoing"
+        ],
+        "summary": "USED OUTGOING: /api/v1/admin/orders/today-stats/?date=${encodeURIComponent(date)}",
+        "description": "This is a discovered outgoing call from code. Real method/body may vary. See request logs for real payloads.",
+        "responses": {
+          "200": {
+            "description": "Upstream response"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "internal",
+      "description": "Next.js internal API routes (/api/...)"
+    },
+    {
+      "name": "outgoing",
+      "description": "Backend calls used by this app (discovered from code)"
+    }
+  ]
+}

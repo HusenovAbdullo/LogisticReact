@@ -25,6 +25,7 @@ export type RequestLogItem = {
   resBody?: unknown;
 
   error?: string;
+  tag?: string; // ixtiyoriy meta (UI’da qidirishga qulay)
 };
 
 export type RequestLogInput = Omit<RequestLogItem, "id" | "ts"> & {
@@ -32,8 +33,8 @@ export type RequestLogInput = Omit<RequestLogItem, "id" | "ts"> & {
   ts?: string;
 };
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const LOG_FILE = path.join(DATA_DIR, "request-logs.jsonl");
+export const DATA_DIR = path.join(process.cwd(), "data");
+export const LOG_FILE = path.join(DATA_DIR, "request-logs.jsonl");
 
 function ensureDir() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -52,11 +53,19 @@ function safeJson(value: unknown) {
 }
 
 function truncate(value: unknown, maxLen = 20_000) {
-  const s = JSON.stringify(value);
-  if (s.length <= maxLen) return value;
-  return { __truncated: true, preview: s.slice(0, maxLen) };
+  try {
+    const s = JSON.stringify(value);
+    if (s.length <= maxLen) return value;
+    return { __truncated: true, preview: s.slice(0, maxLen) };
+  } catch {
+    return String(value);
+  }
 }
 
+/**
+ * JSONL (1 line = 1 log item) append.
+ * Bitta fayl: data/request-logs.jsonl
+ */
 export function appendLog(input: RequestLogInput) {
   ensureDir();
 
@@ -78,6 +87,7 @@ export function appendLog(input: RequestLogInput) {
     resBody: truncate(safeJson(input.resBody)),
 
     error: input.error,
+    tag: input.tag,
   };
 
   fs.appendFileSync(LOG_FILE, JSON.stringify(item) + "\n", "utf8");
@@ -95,7 +105,7 @@ export function readLogs(): RequestLogItem[] {
     try {
       items.push(JSON.parse(line));
     } catch {
-      // skip
+      // broken line skip
     }
   }
   return items;
@@ -107,8 +117,8 @@ export function filterLogs(
     q?: string;
     method?: string;
     status?: string; // "200" yoki "200-299"
-    from?: string; // ISO
-    to?: string; // ISO
+    from?: string;   // ISO
+    to?: string;     // ISO
     direction?: LogDirection;
   },
 ) {
@@ -118,12 +128,10 @@ export function filterLogs(
     if (!f.status) return null;
     if (f.status.includes("-")) {
       const [a, b] = f.status.split("-").map((x) => Number(x.trim()));
-      if (Number.isFinite(a) && Number.isFinite(b)) return { a, b };
-      return null;
+      return Number.isFinite(a) && Number.isFinite(b) ? { a, b } : null;
     }
     const s = Number(f.status);
-    if (Number.isFinite(s)) return { a: s, b: s };
-    return null;
+    return Number.isFinite(s) ? { a: s, b: s } : null;
   })();
 
   const from = f.from ? Date.parse(f.from) : null;
@@ -143,7 +151,7 @@ export function filterLogs(
     if (to && Number.isFinite(to) && t > to) return false;
 
     if (q) {
-      const hay = `${x.method} ${x.url} ${x.status ?? ""} ${x.error ?? ""}`.toLowerCase();
+      const hay = `${x.method} ${x.url} ${x.status ?? ""} ${x.error ?? ""} ${x.tag ?? ""}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
 
@@ -151,16 +159,16 @@ export function filterLogs(
   });
 }
 
-export const exportLogsToFile = (items: RequestLogItem[]) => {
+/**
+ * Filter qilingan loglarni JSON faylga eksport
+ */
+export function exportLogsToFile(items: RequestLogItem[]) {
   ensureDir();
   const stamp = new Date().toISOString().replace(/[:.]/g, "-");
   const out = path.join(DATA_DIR, `request-logs-export-${stamp}.json`);
   fs.writeFileSync(out, JSON.stringify(items, null, 2), "utf8");
   return out;
-};
+}
 
 // Turbopack uchun “aniq” export ro‘yxati
-export {
-  DATA_DIR as __LOG_DATA_DIR,
-  LOG_FILE as __LOG_FILE,
-};
+export { DATA_DIR as __LOG_DATA_DIR, LOG_FILE as __LOG_FILE };
