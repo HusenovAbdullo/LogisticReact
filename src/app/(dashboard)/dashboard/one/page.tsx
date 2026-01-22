@@ -1,3 +1,4 @@
-export default function Page() {
-  return <div className="text-lg font-semibold">Dashboard One</div>;
+// src/app/(dashboard)/dashboard/one/page.tsx
+export default function DashboardOnePage() {
+  return <div>Dashboard One</div>;
 }

@@ -1,49 +1,88 @@
 // src/lib/auth.ts
 import { cookies } from "next/headers";
 
+/* =========================
+ * Cookie names (env-driven)
+ * ========================= */
 export const AUTH_COOKIE_NAME = process.env.AUTH_COOKIE ?? "sp_token";
 export const REFRESH_COOKIE_NAME = process.env.REFRESH_COOKIE ?? "refresh_token";
 
-const BACKEND_URL =
-  process.env.BACKEND_URL ||
-  process.env.API_BASE_URL ||
-  process.env.NEXT_PUBLIC_API_BASE_URL;
+/* =========================
+ * Env helpers
+ * ========================= */
+function getBackendUrl(): string | null {
+  const u =
+    process.env.BACKEND_URL ||
+    process.env.API_BASE_URL ||
+    process.env.NEXT_PUBLIC_API_BASE_URL;
 
-function cleanBaseUrl(u: string) {
-  return u.replace(/\/$/, "");
+  if (!u) return null;
+  return cleanBaseUrl(u);
 }
 
-export type Role = "shop" | "admin";
+function cleanBaseUrl(u: string) {
+  return u.replace(/\/+$/, "");
+}
+
+function isProd() {
+  return process.env.NODE_ENV === "production";
+}
 
 /* =========================
- * Role helpers (SSR)
+ * Cookie options
+ * =========================
+ * Eslatma:
+ * - Next.js cookies() SSR writer uchun httpOnly cookie set qilsa bo‘ladi.
+ * - Barcha joyda bir xil options ishlatish muhim (clear paytida ham).
  * ========================= */
-export async function getRoleSSR() {
+type SameSite = "lax" | "strict" | "none";
+
+function cookieBase(opts?: { maxAge?: number; sameSite?: SameSite }) {
+  return {
+    httpOnly: true as const,
+    secure: isProd(),
+    sameSite: (opts?.sameSite ?? "lax") as SameSite,
+    path: "/" as const,
+    ...(typeof opts?.maxAge === "number" ? { maxAge: opts.maxAge } : {}),
+  };
+}
+
+/* =========================
+ * Roles (SSR)
+ * ========================= */
+export type Role = "shop" | "admin";
+
+export async function getRoleSSR(): Promise<{ role: Role; shopOwner: boolean }> {
   const c = await cookies();
-  const role = c.get("role")?.value as Role | undefined;
+  const roleRaw = c.get("role")?.value;
   const shopOwner = c.get("shop_owner")?.value === "true";
 
-  return {
-    role: role ?? (shopOwner ? "shop" : "admin"),
-    shopOwner,
-  };
+  const role: Role =
+    roleRaw === "shop" || roleRaw === "admin"
+      ? (roleRaw as Role)
+      : shopOwner
+      ? "shop"
+      : "admin";
+
+  return { role, shopOwner };
 }
 
 /* =========================
  * Token helpers (SSR)
  * ========================= */
-export async function getAccessTokenSSR() {
+export async function getAccessTokenSSR(): Promise<string | null> {
   const c = await cookies();
   return c.get(AUTH_COOKIE_NAME)?.value ?? null;
 }
 
-export async function getRefreshTokenSSR() {
+export async function getRefreshTokenSSR(): Promise<string | null> {
   const c = await cookies();
   return c.get(REFRESH_COOKIE_NAME)?.value ?? null;
 }
 
-export async function hasAccessSSR() {
-  return Boolean(await getAccessTokenSSR());
+export async function hasAccessSSR(): Promise<boolean> {
+  const t = await getAccessTokenSSR();
+  return Boolean(t);
 }
 
 export const hasAccessTokenSSR = hasAccessSSR;
@@ -54,84 +93,127 @@ export const hasAccessTokenSSR = hasAccessSSR;
 export async function setAuthCookiesSSR(p: {
   accessToken: string;
   refreshToken?: string;
-  maxAgeSeconds?: number;
+  accessMaxAgeSeconds?: number; // access uchun
+  refreshMaxAgeSeconds?: number; // refresh uchun (default 30 kun)
 }) {
   const c = await cookies();
-  const isProd = process.env.NODE_ENV === "production";
 
-  const maxAge = p.maxAgeSeconds ?? 60 * 60; // 1 soat (default)
-
-  c.set(AUTH_COOKIE_NAME, p.accessToken, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: "lax",
-    path: "/",
-    maxAge,
-  });
+  const accessMaxAge = p.accessMaxAgeSeconds ?? 60 * 60; // 1 soat default
+  c.set(AUTH_COOKIE_NAME, p.accessToken, cookieBase({ maxAge: accessMaxAge }));
 
   if (p.refreshToken) {
-    c.set(REFRESH_COOKIE_NAME, p.refreshToken, {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: "lax",
-      path: "/",
-      // refresh odatda uzoqroq bo‘ladi
-      maxAge: 60 * 60 * 24 * 30, // 30 kun (default)
-    });
+    const refreshMaxAge = p.refreshMaxAgeSeconds ?? 60 * 60 * 24 * 30; // 30 kun default
+    c.set(REFRESH_COOKIE_NAME, p.refreshToken, cookieBase({ maxAge: refreshMaxAge }));
   }
 }
 
+/**
+ * Cookie’larni ishonchli tozalash:
+ * - delete() ba’zi holatlarda (path/domain mismatch) kutilganidek ishlamasligi mumkin.
+ * - Shu sabab maxAge=0 bilan set ham qilamiz.
+ */
 export async function clearAuthCookiesSSR() {
   const c = await cookies();
-  c.delete(AUTH_COOKIE_NAME);
-  c.delete(REFRESH_COOKIE_NAME);
+
+  // 1) delete (tezkor)
+  try {
+    c.delete(AUTH_COOKIE_NAME);
+    c.delete(REFRESH_COOKIE_NAME);
+  } catch {
+    // ba’zi runtime’larda delete cheklangan bo‘lishi mumkin
+  }
+
+  // 2) "overwrite" qilib, ishonchli tozalash
+  c.set(AUTH_COOKIE_NAME, "", cookieBase({ maxAge: 0 }));
+  c.set(REFRESH_COOKIE_NAME, "", cookieBase({ maxAge: 0 }));
 }
 
 /* =========================
  * Refresh flow (SSR)
  * =========================
- * 1) refresh_token cookie bor bo‘lsa backend refresh endpoint’ga uriladi
+ * 1) refresh cookie bor bo‘lsa backend refresh endpoint’ga uriladi
  * 2) yangi access cookie set qilinadi
  * 3) yangi access token qaytariladi
  *
- * Eslatma: refresh endpoint URL’i sizning backend’ga mos bo‘lishi kerak.
- * Default: /api/v1/admin/auth/refresh/
- * Agar boshqacha bo‘lsa, REFRESH_PATH env qo‘ying.
+ * Default refresh path: /api/v1/admin/auth/refresh/
+ * Boshqacha bo‘lsa: REFRESH_PATH env qo‘ying.
  * ========================= */
+type RefreshResponseLike = {
+  access?: string;
+  access_token?: string;
+  token?: string;
+  refresh?: string;
+  refresh_token?: string;
+  expires_in?: number; // seconds
+  access_expires_in?: number; // seconds (ba’zi backendlar)
+};
+
+function pickAccessToken(d: RefreshResponseLike | null | undefined): string | null {
+  return (d?.access || d?.access_token || d?.token || null) ?? null;
+}
+
+function pickRefreshToken(d: RefreshResponseLike | null | undefined): string | undefined {
+  return d?.refresh || d?.refresh_token || undefined;
+}
+
+function pickExpiresIn(d: RefreshResponseLike | null | undefined): number | undefined {
+  const v = d?.access_expires_in ?? d?.expires_in;
+  return typeof v === "number" && Number.isFinite(v) ? v : undefined;
+}
+
 export async function refreshAccessTokenSSR(): Promise<string | null> {
   const refresh = await getRefreshTokenSSR();
   if (!refresh) return null;
 
-  if (!BACKEND_URL) return null;
+  const backend = getBackendUrl();
+  if (!backend) return null;
 
   const refreshPath = process.env.REFRESH_PATH ?? "/api/v1/admin/auth/refresh/";
-  const url = `${cleanBaseUrl(BACKEND_URL)}${refreshPath}`;
+  const url = `${backend}${refreshPath.startsWith("/") ? "" : "/"}${refreshPath}`;
 
   const res = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json", accept: "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
     body: JSON.stringify({ refresh }),
     cache: "no-store",
   });
 
   if (!res.ok) return null;
 
-  const data = await res.json().catch(() => null);
-  const accessToken: string | undefined =
-    data?.access || data?.access_token || data?.token;
+  let data: RefreshResponseLike | null = null;
+  try {
+    data = (await res.json()) as RefreshResponseLike;
+  } catch {
+    data = null;
+  }
 
+  const accessToken = pickAccessToken(data);
   if (!accessToken) return null;
 
-  // refresh rotation bo‘lsa ham qo‘llab-quvvatlaymiz
-  const refreshToken: string | undefined =
-    data?.refresh || data?.refresh_token || undefined;
+  const rotatedRefresh = pickRefreshToken(data);
+  const expiresIn = pickExpiresIn(data);
 
   await setAuthCookiesSSR({
     accessToken,
-    refreshToken,
-    // ba’zi backend’lar expires_in beradi (sekund)
-    maxAgeSeconds: typeof data?.expires_in === "number" ? data.expires_in : undefined,
+    refreshToken: rotatedRefresh, // rotation bo‘lsa yangilanadi
+    accessMaxAgeSeconds: expiresIn, // bo‘lsa ishlatamiz, bo‘lmasa default
+    // refreshMaxAgeSeconds default 30 kun
   });
 
   return accessToken;
+}
+
+/* =========================
+ * Optional helper:
+ * Authorization header (SSR fetch’lar uchun qulay)
+ * ========================= */
+export async function buildAuthHeadersSSR(extra?: HeadersInit): Promise<HeadersInit> {
+  const token = await getAccessTokenSSR();
+  return {
+    ...(extra ?? {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
 }
