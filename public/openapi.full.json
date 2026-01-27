@@ -108,7 +108,21 @@
           "outgoing"
         ],
         "summary": "USED OUTGOING: /api/v1/admin/orders/today-stats/?date=${encodeURIComponent(date)}",
-        "description": "This is a discovered outgoing call from code. Real method/body may vary. See request logs for real payloads.",
+        "description": "Discovered from code. Real method/body may vary. Use Request Logs for real payloads.",
+        "responses": {
+          "200": {
+            "description": "Upstream response"
+          }
+        }
+      }
+    },
+    "/__outgoing__/api/v1/admin/auth/refresh/": {
+      "get": {
+        "tags": [
+          "outgoing"
+        ],
+        "summary": "USED OUTGOING: /api/v1/admin/auth/refresh/",
+        "description": "Discovered from code. Real method/body may vary. Use Request Logs for real payloads.",
         "responses": {
           "200": {
             "description": "Upstream response"
