@@ -5,8 +5,32 @@ import type {
   OrderEvent,
   OrderStatus,
   PaymentMethod,
+  OrderHistoryItem,
+  OrderRoute,
+  Party,
+  EmployeeRef,
 } from "../model/types";
 import { uid } from "../lib/format";
+
+/* =========================
+ * Utils
+ * ========================= */
+function rnd(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
+function pick<T>(arr: readonly T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)]!;
+}
+
+function phone() {
+  const n = () => Math.floor(rnd(0, 10));
+  return `+998 9${Math.floor(rnd(0, 10))} ${n()}${n()}${n()} ${n()}${n()} ${n()}${n()}`;
+}
+
+function makeMoney(base: number, currency: Money["currency"]): Money {
+  return { amount: Math.round(base), currency };
+}
 
 /* =========================
  * Static data
@@ -24,7 +48,7 @@ const CITIES = [
   { city: "Singapore", country: "Singapur", lat: 1.3521, lng: 103.8198 },
   { city: "Sydney", country: "Avstraliya", lat: -33.8688, lng: 151.2093 },
   { city: "Paris", country: "Fransiya", lat: 48.8566, lng: 2.3522 },
-];
+] as const;
 
 const NAMES = [
   "Aziz",
@@ -37,8 +61,10 @@ const NAMES = [
   "Umida",
   "Bekzod",
   "Nodira",
-];
-const LAST = ["Aliyev", "Karimov", "Qodirov", "Ismoilov", "Tursunov", "Raximov", "Ortiqov"];
+] as const;
+
+const LAST = ["Aliyev", "Karimov", "Qodirov", "Ismoilov", "Tursunov", "Raximov", "Ortiqov"] as const;
+
 const STREETS = [
   "Amir Temur",
   "Navoi",
@@ -48,9 +74,9 @@ const STREETS = [
   "Mirzo Ulug'bek",
   "Buyuk Ipak Yo'li",
   "Beshyog'och",
-];
+] as const;
 
-const STATUSES: OrderStatus[] = [
+const STATUSES: readonly OrderStatus[] = [
   "processing",
   "assigned",
   "picked",
@@ -62,7 +88,7 @@ const STATUSES: OrderStatus[] = [
   "returned",
 ];
 
-const PAY: PaymentMethod[] = ["cash", "card", "transfer"];
+const PAY: readonly PaymentMethod[] = ["cash", "card", "transfer"];
 
 const TAGS = [
   "Fragile",
@@ -73,7 +99,7 @@ const TAGS = [
   "Priority",
   "Cold-chain",
   "Insurance",
-];
+] as const;
 
 /* =========================
  * Couriers
@@ -86,47 +112,23 @@ export const COURIERS: Courier[] = [
 ];
 
 /* =========================
- * Employees (mock)
+ * Employees (mock) -> EmployeeRef
  * ========================= */
-type Employee = {
-  id: string;
-  name: string;
-  role?: string;
-};
+const EMPLOYEE_ROLES = ["Operator", "Dispatcher", "Nazorat", "Kassir", "Omborchi", "Menejer"] as const;
 
-const EMPLOYEE_ROLES = [
-  "Operator",
-  "Dispatcher",
-  "Nazorat",
-  "Kassir",
-  "Omborchi",
-  "Menejer",
-] as const;
-
-const EMPLOYEES: Employee[] = Array.from({ length: 10 }).map((_, i) => ({
+const EMPLOYEES: EmployeeRef[] = Array.from({ length: 12 }).map((_, i) => ({
   id: `e${i + 1}`,
   name: `${pick(NAMES)} ${pick(LAST)}`,
-  role: pick([...EMPLOYEE_ROLES]),
+  role: pick(EMPLOYEE_ROLES),
 }));
 
-function rnd(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
-function pick<T>(arr: T[]) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function phone() {
-  const n = () => Math.floor(rnd(0, 10));
-  return `+998 9${Math.floor(rnd(0, 10))} ${n()}${n()}${n()} ${n()}${n()} ${n()}${n()}`;
-}
-
-function party() {
+function party(): Party {
   const c = pick(CITIES);
   const lat = c.lat + rnd(-0.2, 0.2);
   const lng = c.lng + rnd(-0.2, 0.2);
   const name = `${pick(NAMES)} ${pick(LAST)}`;
   const address = `${pick(STREETS)} ko'ch., ${Math.floor(rnd(1, 120))}-uy`;
+
   return {
     name,
     phone: phone(),
@@ -137,75 +139,135 @@ function party() {
   };
 }
 
-function makeMoney(base: number, currency: Money["currency"]): Money {
-  return { amount: Math.round(base), currency };
+/* =========================
+ * Route (mock)
+ * ========================= */
+function makeRoute(sender: Party, recipient: Party): OrderRoute {
+  const dx = sender.geo.lat - recipient.geo.lat;
+  const dy = sender.geo.lng - recipient.geo.lng;
+
+  // rough distance: 1° ~ 111km
+  const approxKm = Math.max(1, Math.round(Math.sqrt(dx * dx + dy * dy) * 111));
+  const etaMin = Math.max(10, Math.round(approxKm * rnd(2, 5))); // 2–5 min/km
+
+  return {
+    distanceKm: approxKm,
+    etaMin,
+    polyline: [
+      [sender.geo.lat, sender.geo.lng],
+      [recipient.geo.lat, recipient.geo.lng],
+    ],
+  };
 }
 
 /* =========================
- * Events
+ * History (audit mock)
  * ========================= */
+function makeHistory(createdAt: Date, status: OrderStatus, courierId: string | null): OrderHistoryItem[] {
+  const items: OrderHistoryItem[] = [];
 
+  const push = (mins: number, data: Omit<OrderHistoryItem, "id" | "ts">) => {
+    items.push({
+      id: uid("his"),
+      ts: new Date(createdAt.getTime() + mins * 60_000).toISOString(),
+      ...data,
+    });
+  };
+
+  const op1 = pick(EMPLOYEES);
+  push(0, { actorName: op1.name, action: "create" });
+
+  const op2 = pick(EMPLOYEES);
+  push(30, {
+    actorName: op2.name,
+    action: "update",
+    field: "notes",
+    from: null,
+    to: "checked",
+    note: "Ma'lumotlar tekshirildi",
+  });
+
+  if (courierId) {
+    const cr = COURIERS.find((c) => c.id === courierId);
+    const dp = pick(EMPLOYEES);
+
+    push(60, {
+      actorName: dp.name,
+      action: "assign_courier",
+      field: "courierId",
+      from: null,
+      to: cr ? cr.name : courierId,
+      note: cr ? `Kuryer biriktirildi: ${cr.name}` : "Kuryer biriktirildi",
+    });
+  }
+
+  const op3 = pick(EMPLOYEES);
+  push(90, {
+    actorName: op3.name,
+    action: "status_change",
+    field: "status",
+    from: "processing",
+    to: status,
+    note: "Status yangilandi",
+  });
+
+  return items.sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());
+}
+
+/* =========================
+ * Timeline events
+ * ========================= */
 function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | null): OrderEvent[] {
   const events: OrderEvent[] = [];
-
-  const baseSender = pick(EMPLOYEES);
-  const baseReceiver = pick(EMPLOYEES);
 
   const push = (
     mins: number,
     title: string,
-    t: OrderEvent["type"],
+    type: OrderEvent["type"],
     s?: OrderStatus,
     extra?: Partial<OrderEvent>,
   ) => {
     const ts = new Date(createdAt.getTime() + mins * 60_000).toISOString();
 
-    // default employees (agar event uchun berilmasa)
-    const senderEmployee =
-      (extra as any)?.senderEmployee ?? baseSender;
-    const receiverEmployee =
-      (extra as any)?.receiverEmployee ?? baseReceiver;
-
     events.push({
       id: uid("ev"),
       ts,
       title,
-      type: t,
+      type,
       status: s,
-      ...(extra ?? {}),
-      // employees — DetailsDrawer’da render bo‘lishi uchun
-      senderEmployee,
-      receiverEmployee,
-    } as OrderEvent);
+      description: extra?.description,
+      by: extra?.by,
+      senderEmployee: extra?.senderEmployee,
+      receiverEmployee: extra?.receiverEmployee,
+    });
   };
 
-  // 1) created
+  // created
   push(0, "Zakaz yaratildi", "system", "processing", {
     description: "Buyurtma tizimga kiritildi.",
+    senderEmployee: pick(EMPLOYEES),
+    receiverEmployee: pick(EMPLOYEES),
   });
 
-  // 2) checked
+  // checked
   push(30, "Ma'lumotlar tekshirildi", "system", "processing", {
     description: "Operator ma'lumotlarni tekshirdi.",
     senderEmployee: pick(EMPLOYEES),
     receiverEmployee: pick(EMPLOYEES),
   });
 
-  // 3) assign courier (agar status shu bosqichdan o‘tgan bo‘lsa)
+  // assign courier (only if order moved forward)
   if (["assigned", "picked", "in_transit", "out_for_delivery", "delivered"].includes(status)) {
     const dispatcher = pick(EMPLOYEES);
     const courier = courierId ? COURIERS.find((c) => c.id === courierId) : null;
 
     push(60, "Kuryer biriktirildi", "status", "assigned", {
       description: courier ? `Kuryer: ${courier.name}` : "Kuryer biriktirildi.",
-      senderEmployee: { id: dispatcher.id, name: dispatcher.name, role: dispatcher.role },
-      receiverEmployee: courier
-        ? { id: courier.id, name: courier.name, role: "Kuryer" }
-        : { id: baseReceiver.id, name: baseReceiver.name, role: baseReceiver.role },
+      senderEmployee: dispatcher,
+      receiverEmployee: courier ? { id: courier.id, name: courier.name, role: "Kuryer" } : pick(EMPLOYEES),
     });
   }
 
-  // 4) picked
   if (["picked", "in_transit", "out_for_delivery", "delivered"].includes(status)) {
     push(120, "Posilka olindi", "status", "picked", {
       description: "Kuryer posilkani ombordan qabul qilib oldi.",
@@ -214,7 +276,6 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   }
 
-  // 5) in transit
   if (["in_transit", "out_for_delivery", "delivered"].includes(status)) {
     push(240, "Yo'lda", "status", "in_transit", {
       description: "Posilka yo'lda.",
@@ -223,7 +284,6 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   }
 
-  // 6) out for delivery
   if (["out_for_delivery", "delivered"].includes(status)) {
     push(360, "Yetkazishga chiqdi", "status", "out_for_delivery", {
       description: "Kuryer manzilga yo'l oldi.",
@@ -232,8 +292,7 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   }
 
-  // 7) delivered
-  if (["delivered"].includes(status)) {
+  if (status === "delivered") {
     push(480, "Yetkazildi", "status", "delivered", {
       description: "Qabul qiluvchiga topshirildi.",
       senderEmployee: pick(EMPLOYEES),
@@ -241,7 +300,6 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   }
 
-  // cancelled / returned / postponed
   if (status === "cancelled") {
     push(180, "Bekor qilindi", "status", "cancelled", {
       description: "Buyurtma bekor qilindi.",
@@ -266,6 +324,7 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   }
 
+  // timeline’da odatda “oxirgisi yuqorida” ko‘rsatasiz, lekin data har doim ascending bo‘lib tursin:
   return events.sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());
 }
 
@@ -274,13 +333,32 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
  * ========================= */
 function code(i: number) {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const a = letters[Math.floor(Math.random() * letters.length)];
-  const b = letters[Math.floor(Math.random() * letters.length)];
+  const a = letters[Math.floor(Math.random() * letters.length)]!;
+  const b = letters[Math.floor(Math.random() * letters.length)]!;
   return `${a}${b}-${String(1000 + i).slice(-3)}`;
 }
+
 function barcode() {
   return String(Math.floor(rnd(1e11, 9e11)));
 }
+
+/* =========================
+ * (Optional) Proof generators
+ * ========================= */
+// Agar type’larda keyin qo‘shsangiz ishlatasiz (hozircha ishlatmasangiz ham bo‘ladi).
+export const pickProof = (createdAt: Date) => ({
+  signatureUrl: "./mock/signature.jpg",
+  parcelPhotoUrl: "./parcel.jpg",
+  signedAt: new Date(createdAt.getTime() + 70 * 60_000).toISOString(),
+  signedByName: "Operator",
+});
+
+export const deliverProof = (createdAt: Date) => ({
+  signatureUrl: "./mock/signature2.jpg",
+  parcelPhotoUrl: "./mock/parcel2.jpg",
+  signedAt: new Date(createdAt.getTime() + 480 * 60_000).toISOString(),
+  signedByName: "Receiver",
+});
 
 /* =========================
  * Public API
@@ -293,6 +371,7 @@ export function generateOrders(count = 120): Order[] {
     const createdAt = new Date(
       today.getTime() - rnd(0, 14) * 24 * 3600_000 - rnd(0, 12) * 3600_000,
     );
+
     const sch = new Date(today.getTime() + rnd(-2, 5) * 24 * 3600_000);
     const scheduledDate = sch.toISOString().slice(0, 10);
 
@@ -306,9 +385,9 @@ export function generateOrders(count = 120): Order[] {
     const sender = party();
     const recipient = party();
 
-    const courier = Math.random() < 0.7 ? pick(COURIERS).id : null;
+    const courierId = Math.random() < 0.7 ? pick(COURIERS).id : null;
 
-    const slaRisk =
+    const slaRisk: Order["slaRisk"] =
       total.amount > 6_000_000 ? "high" : total.amount > 2_000_000 ? "medium" : "low";
 
     const tags = Array.from({ length: Math.floor(rnd(0, 4)) }, () => pick(TAGS));
@@ -326,7 +405,7 @@ export function generateOrders(count = 120): Order[] {
       slaRisk,
       sender,
       recipient,
-      courierId: courier,
+      courierId,
       productValue: pv,
       deliveryFee: fee,
       total,
@@ -336,7 +415,9 @@ export function generateOrders(count = 120): Order[] {
       pieces: Math.floor(rnd(1, 8)),
       tags: uniqTags,
       notes: Math.random() < 0.2 ? "Mijoz eshik oldida qo'ng'iroq qilsin." : "",
-      events: makeEvents(createdAt, status, courier),
+      route: makeRoute(sender, recipient),
+      history: makeHistory(createdAt, status, courierId),
+      events: makeEvents(createdAt, status, courierId),
     });
   }
 

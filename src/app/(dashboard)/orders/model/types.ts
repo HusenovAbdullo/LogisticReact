@@ -22,11 +22,10 @@ export type Money = {
   currency: Currency;
 };
 
-export type GeoPoint = {
-  lat: number;
-  lng: number;
-};
+export type IsoDateString = string; // "2026-01-27T10:19:35.000Z"
+export type DateYMD = string; // "2026-01-27"
 
+export type GeoPoint = { lat: number; lng: number };
 export type LatLngTuple = [number, number];
 
 /* =========================
@@ -52,10 +51,20 @@ export type Courier = {
   active: boolean;
 };
 
+export type EmployeeRole =
+  | "Operator"
+  | "Dispatcher"
+  | "Nazorat"
+  | "Kassir"
+  | "Omborchi"
+  | "Menejer"
+  | "Kuryer"
+  | (string & {});
+
 export type EmployeeRef = {
   id: string;
   name: string;
-  role?: string; // masalan: Operator, Dispatcher, Kassir, Omborchi, Kuryer
+  role?: EmployeeRole;
 };
 
 /* =========================
@@ -66,6 +75,17 @@ export type OrderRoute = {
   distanceKm?: number;
   etaMin?: number;
   polyline?: LatLngTuple[];
+};
+
+/* =========================
+ * Proofs (signature + parcel photo)
+ * ========================= */
+
+export type ProofMedia = {
+  signatureUrl?: string; // imzo rasmi (png/jpg) - same-origin bo‘lsa zo‘r
+  parcelPhotoUrl?: string; // posilka rasmi (png/jpg)
+  signedAt?: IsoDateString;
+  signedBy?: EmployeeRef; // kim tasdiqladi (optional)
 };
 
 /* =========================
@@ -82,13 +102,15 @@ export type OrderHistoryAction =
 
 export type OrderHistoryItem = {
   id: string;
-  ts: string; // ISO date
-  actorName: string;
-  action: OrderHistoryAction;
-  field?: string;
+  ts: IsoDateString;
 
+  actorName: string; // backendda actorName bo‘lsa shunday qoldiramiz
+  action: OrderHistoryAction;
+
+  field?: string;
   from?: string | number | null;
   to?: string | number | null;
+
   note?: string | null;
 };
 
@@ -96,29 +118,28 @@ export type OrderHistoryItem = {
  * Order events (timeline)
  * ========================= */
 
-export type OrderEventType =
-  | "status"
-  | "note"
-  | "system"
-  | "payment"; // kelajakda kerak bo‘lishi mumkin
+export type OrderEventType = "status" | "note" | "system" | "payment";
 
 export type OrderEvent = {
   id: string;
-  ts: string; // ISO
+  ts: IsoDateString;
   type: OrderEventType;
 
   title: string;
   description?: string;
 
-  // status eventlar uchun (timeline’da badge)
+  // status eventlar uchun (timeline badge)
   status?: OrderStatus;
 
-  // kim yozgani/trigger qilgani (oddiy string)
+  // oddiy string (loglarda)
   by?: string;
 
-  // kim yubordi / kim qabul qildi (siz so‘ragan blok)
+  // ✅ siz so‘ragan: qaysi xodim yubordi / qaysi xodim qabul qildi
   senderEmployee?: EmployeeRef;
   receiverEmployee?: EmployeeRef;
+
+  // kelajakda kerak bo‘lsa:
+  meta?: Record<string, unknown>;
 };
 
 /* =========================
@@ -130,14 +151,10 @@ export type Order = {
   code: string;
   barcode: string;
 
-  // Optional sections
-  route?: OrderRoute;
-  history?: OrderHistoryItem[];
-
-  createdAt: string; // ISO
-  scheduledDate: string; // YYYY-MM-DD
-  timeFrom?: string; // HH:MM
-  timeTo?: string; // HH:MM
+  createdAt: IsoDateString;
+  scheduledDate: DateYMD;
+  timeFrom?: string; // "09:00"
+  timeTo?: string; // "18:00"
 
   status: OrderStatus;
   slaRisk: "low" | "medium" | "high";
@@ -145,7 +162,6 @@ export type Order = {
   sender: Party;
   recipient: Party;
 
-  // courierId ba'zan null bo'lishi mumkin
   courierId?: string | null;
 
   productValue: Money;
@@ -161,6 +177,14 @@ export type Order = {
   notes?: string;
 
   events: OrderEvent[];
+
+  // Optional sections
+  route?: OrderRoute;
+  history?: OrderHistoryItem[];
+
+  // ✅ NEW: imzo + posilka rasm(lar)i
+  pickupProof?: ProofMedia;   // yuboruvchidan qabul qilish (pickup)
+  deliveryProof?: ProofMedia; // qabul qiluvchiga topshirish (delivery)
 };
 
 /* =========================
@@ -170,8 +194,9 @@ export type Order = {
 export type OrderQuery = {
   q?: string;
   statuses?: OrderStatus[];
-  dateFrom?: string;
-  dateTo?: string;
+  dateFrom?: DateYMD;
+  dateTo?: DateYMD;
+
   city?: string;
   courierId?: string | null;
 
