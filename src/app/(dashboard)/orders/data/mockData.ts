@@ -50,19 +50,7 @@ const CITIES = [
   { city: "Paris", country: "Fransiya", lat: 48.8566, lng: 2.3522 },
 ] as const;
 
-const NAMES = [
-  "Aziz",
-  "Javohir",
-  "Dilshod",
-  "Shoxrux",
-  "Madina",
-  "Malika",
-  "Sardor",
-  "Umida",
-  "Bekzod",
-  "Nodira",
-] as const;
-
+const NAMES = ["Aziz", "Javohir", "Dilshod", "Shoxrux", "Madina", "Malika", "Sardor", "Umida", "Bekzod", "Nodira"] as const;
 const LAST = ["Aliyev", "Karimov", "Qodirov", "Ismoilov", "Tursunov", "Raximov", "Ortiqov"] as const;
 
 const STREETS = [
@@ -90,16 +78,7 @@ const STATUSES: readonly OrderStatus[] = [
 
 const PAY: readonly PaymentMethod[] = ["cash", "card", "transfer"];
 
-const TAGS = [
-  "Fragile",
-  "Express",
-  "COD",
-  "International",
-  "Returnable",
-  "Priority",
-  "Cold-chain",
-  "Insurance",
-] as const;
+const TAGS = ["Fragile", "Express", "COD", "International", "Returnable", "Priority", "Cold-chain", "Insurance"] as const;
 
 /* =========================
  * Couriers
@@ -242,21 +221,18 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   };
 
-  // created
   push(0, "Zakaz yaratildi", "system", "processing", {
     description: "Buyurtma tizimga kiritildi.",
     senderEmployee: pick(EMPLOYEES),
     receiverEmployee: pick(EMPLOYEES),
   });
 
-  // checked
   push(30, "Ma'lumotlar tekshirildi", "system", "processing", {
     description: "Operator ma'lumotlarni tekshirdi.",
     senderEmployee: pick(EMPLOYEES),
     receiverEmployee: pick(EMPLOYEES),
   });
 
-  // assign courier (only if order moved forward)
   if (["assigned", "picked", "in_transit", "out_for_delivery", "delivered"].includes(status)) {
     const dispatcher = pick(EMPLOYEES);
     const courier = courierId ? COURIERS.find((c) => c.id === courierId) : null;
@@ -310,7 +286,7 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
 
   if (status === "returned") {
     push(500, "Qaytarildi", "status", "returned", {
-      description: "Posilka qaytarildi.",
+     endif: "Posilka qaytarildi.",
       senderEmployee: pick(EMPLOYEES),
       receiverEmployee: pick(EMPLOYEES),
     });
@@ -324,7 +300,6 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
     });
   }
 
-  // timeline’da odatda “oxirgisi yuqorida” ko‘rsatasiz, lekin data har doim ascending bo‘lib tursin:
   return events.sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());
 }
 
@@ -343,22 +318,34 @@ function barcode() {
 }
 
 /* =========================
- * (Optional) Proof generators
+ * Proof generators (mock)
  * ========================= */
-// Agar type’larda keyin qo‘shsangiz ishlatasiz (hozircha ishlatmasangiz ham bo‘ladi).
+export type Proof = {
+  signatureUrl: string;
+  parcelPhotoUrl: string;
+  signedAt: string;
+  signedByName: string;
+};
+
 export const pickProof = (createdAt: Date) => ({
-  signatureUrl: "./mock/signature.jpg",
-  parcelPhotoUrl: "./parcel.jpg",
+  signatureUrl: "/mock/signature.jpg",
+  parcelPhotoUrl: "/mock/parcel.jpg",
   signedAt: new Date(createdAt.getTime() + 70 * 60_000).toISOString(),
   signedByName: "Operator",
 });
 
 export const deliverProof = (createdAt: Date) => ({
-  signatureUrl: "./mock/signature2.jpg",
-  parcelPhotoUrl: "./mock/parcel2.jpg",
+  signatureUrl: "/mock/signature2.jpg",
+  parcelPhotoUrl: "/mock/parcel2.jpg",
   signedAt: new Date(createdAt.getTime() + 480 * 60_000).toISOString(),
   signedByName: "Receiver",
 });
+
+/* =========================
+ * Status helpers for proofs
+ * ========================= */
+const HAS_PICKUP_PROOF: readonly OrderStatus[] = ["picked", "in_transit", "out_for_delivery", "delivered", "returned"];
+const HAS_DELIVERY_PROOF: readonly OrderStatus[] = ["delivered"];
 
 /* =========================
  * Public API
@@ -369,7 +356,7 @@ export function generateOrders(count = 120): Order[] {
 
   for (let i = 0; i < count; i++) {
     const createdAt = new Date(
-      today.getTime() - rnd(0, 14) * 24 * 3600_000 - rnd(0, 12) * 3600_000,
+      today.getTime() - rnd(0, 14) * 24 * 3600_000 - rnd(0, 12) * 3600_000
     );
 
     const sch = new Date(today.getTime() + rnd(-2, 5) * 24 * 3600_000);
@@ -384,7 +371,6 @@ export function generateOrders(count = 120): Order[] {
 
     const sender = party();
     const recipient = party();
-
     const courierId = Math.random() < 0.7 ? pick(COURIERS).id : null;
 
     const slaRisk: Order["slaRisk"] =
@@ -393,7 +379,10 @@ export function generateOrders(count = 120): Order[] {
     const tags = Array.from({ length: Math.floor(rnd(0, 4)) }, () => pick(TAGS));
     const uniqTags = Array.from(new Set(tags));
 
-    list.push({
+    const pickupProof = HAS_PICKUP_PROOF.includes(status) ? pickProof(createdAt) : null;
+    const deliveryProof = HAS_DELIVERY_PROOF.includes(status) ? deliverProof(createdAt) : null;
+
+    const order: Order = {
       id: uid("ord"),
       code: code(i),
       barcode: barcode(),
@@ -418,8 +407,15 @@ export function generateOrders(count = 120): Order[] {
       route: makeRoute(sender, recipient),
       history: makeHistory(createdAt, status, courierId),
       events: makeEvents(createdAt, status, courierId),
-    });
+
+      // ✅ endi toza: hech qanday as any yo‘q
+      pickupProof,
+      deliveryProof,
+    };
+
+    list.push(order);
   }
 
   return list;
 }
+

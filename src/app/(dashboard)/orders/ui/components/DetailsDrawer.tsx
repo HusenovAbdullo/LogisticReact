@@ -35,16 +35,11 @@ async function nextPaint() {
 }
 
 async function exportNodeToPdf(node: HTMLElement, fileName: string) {
-  // html2canvas "lab()" muammosini chetlash uchun:
-  // clone qilingan DOM ichida PDF root’ga safe CSS injekt qilamiz.
   const ATTR = "data-pdf-root";
   node.setAttribute(ATTR, "1");
 
   try {
-    // fontlar yuklansin (ba’zi holatda matn yo‘q bo‘lib qoladi)
-    // @ts-expect-error - fonts ba’zi brauzerlarda yo‘q bo‘lishi mumkin
     if (document.fonts?.ready) {
-      // @ts-expect-error
       await document.fonts.ready;
     }
 
@@ -61,31 +56,22 @@ async function exportNodeToPdf(node: HTMLElement, fileName: string) {
         const root = clonedDoc.querySelector<HTMLElement>(`[${ATTR}="1"]`);
         if (!root) return;
 
-        // PDF uchun safe-class
         root.classList.add("pdf-safe-root");
 
-        // html2canvas ko‘p narsada yiqiladigan CSS’larni o‘chirib, safe rang beramiz
         const style = clonedDoc.createElement("style");
         style.setAttribute("data-pdf-safe-style", "1");
         style.innerHTML = `
-          /* PDF SAFE MODE */
           .pdf-safe-root, .pdf-safe-root * {
             color: #0f172a !important;
             background-color: transparent !important;
             border-color: #e2e8f0 !important;
             text-decoration-color: #0f172a !important;
-
-            /* html2canvas ko‘p yiqiladiganlar */
             filter: none !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
-
-            /* agar tailwind v4 lab/oklch ishlatsa ham biz hex bilan bostiramiz */
             box-shadow: none !important;
           }
-          .pdf-safe-root {
-            background-color: #ffffff !important;
-          }
+          .pdf-safe-root { background-color: #ffffff !important; }
           .pdf-safe-root .shadow, 
           .pdf-safe-root .shadow-sm, 
           .pdf-safe-root .shadow-md,
@@ -97,28 +83,25 @@ async function exportNodeToPdf(node: HTMLElement, fileName: string) {
       },
     });
 
-    // canvas bo‘sh chiqmasin
     if (!canvas.width || !canvas.height) {
       throw new Error("PDF olishda xatolik: canvas bo‘sh qaytdi.");
     }
 
     const imgData = canvas.toDataURL("image/png");
-
     const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
+
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
 
     const imgW = pageW;
     const imgH = (canvas.height * imgW) / canvas.width;
 
-    // 1 sahifa
     if (imgH <= pageH) {
       pdf.addImage(imgData, "PNG", 0, 0, imgW, imgH);
       pdf.save(fileName);
       return;
     }
 
-    // ko‘p sahifa (slice)
     const pageHeightPx = Math.floor((canvas.width * pageH) / pageW);
     let renderedHeight = 0;
 
@@ -139,7 +122,7 @@ async function exportNodeToPdf(node: HTMLElement, fileName: string) {
         0,
         0,
         canvas.width,
-        sliceCanvas.height,
+        sliceCanvas.height
       );
 
       const sliceData = sliceCanvas.toDataURL("image/png");
@@ -161,6 +144,10 @@ function pillClass(active: boolean) {
   return active
     ? "bg-white shadow-sm ring-1 ring-slate-200 font-semibold text-slate-900"
     : "text-slate-600 hover:text-slate-900";
+}
+
+function cardClass() {
+  return "rounded-2xl border border-slate-200 p-4 shadow-sm bg-white";
 }
 
 /* =========================
@@ -206,7 +193,7 @@ export default function DetailsDrawer({
       { key: "map" as const, label: "Xarita" },
       { key: "history" as const, label: "Tarix" },
     ],
-    [],
+    []
   );
 
   function currentSectionRef() {
@@ -220,7 +207,6 @@ export default function DetailsDrawer({
   async function onDownloadSectionPdf() {
     if (!order) return;
 
-    // Xarita bo‘limida tile’lar CORS beradi — PDF blank bo‘lib qoladi.
     if (tab === "map") {
       alert("Xarita bo‘limini PDF qilish o‘chirilgan (OpenStreetMap tile CORS).");
       return;
@@ -244,11 +230,8 @@ export default function DetailsDrawer({
   async function onDownloadReceiptPdf() {
     if (!order) return;
 
-    // payment tab’da receiptRef render bo‘lishi uchun biroz kutamiz
     try {
       setPdfBusy(true);
-
-      // agar user tez bossachi — DOM to‘liq chizilmagan bo‘ladi
       await nextPaint();
       await sleep(50);
 
@@ -333,9 +316,10 @@ export default function DetailsDrawer({
           </div>
         ) : tab === "info" ? (
           <div ref={infoRef} className="rounded-2xl bg-white">
+            {/* TOP: 3 cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
               {/* Sender */}
-              <div className="rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div className={cardClass()}>
                 <div className="text-xs text-slate-500 uppercase tracking-wide">Yuboruvchi</div>
                 <div className="font-semibold mt-1 text-slate-900">{order.sender.name}</div>
                 <div className="text-sm text-slate-600 mt-1">{order.sender.phone}</div>
@@ -349,7 +333,7 @@ export default function DetailsDrawer({
               </div>
 
               {/* Recipient */}
-              <div className="rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div className={cardClass()}>
                 <div className="text-xs text-slate-500 uppercase tracking-wide">Qabul qiluvchi</div>
                 <div className="font-semibold mt-1 text-slate-900">{order.recipient.name}</div>
                 <div className="text-sm text-slate-600 mt-1">{order.recipient.phone}</div>
@@ -363,7 +347,7 @@ export default function DetailsDrawer({
               </div>
 
               {/* Shipment */}
-              <div className="rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div className={cardClass()}>
                 <div className="text-xs text-slate-500 uppercase tracking-wide">Shipment</div>
 
                 <div className="mt-3 space-y-2 text-sm">
@@ -390,11 +374,14 @@ export default function DetailsDrawer({
                   Kuryer: {courier ? `${courier.name} (${courier.phone})` : "—"}
                 </div>
               </div>
-              <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-3">
-  <ProofCard title="Yuboruvchidan qabul qilish (Pickup)" proof={order.pickupProof} />
-  <ProofCard title="Qabul qiluvchiga topshirish (Delivery)" proof={order.deliveryProof} />
-</div>
+            </div>
 
+            {/* BOTTOM: proofs as separate block (not inside 3-col grid) */}
+            <div className="mt-3">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                <ProofCard title="Yuboruvchidan qabul qilish (Pickup)" proof={order.pickupProof ?? undefined} />
+                <ProofCard title="Qabul qiluvchiga topshirish (Delivery)" proof={order.deliveryProof ?? undefined} />
+              </div>
             </div>
           </div>
         ) : tab === "timeline" ? (
@@ -452,7 +439,12 @@ export default function DetailsDrawer({
                             <div className="px-4 py-3">
                               <div className="flex items-center gap-2 flex-wrap">
                                 {ev.status ? (
-                                  <span className={["inline-flex items-center rounded-full px-3 py-1 text-xs ring-1", STATUS_BADGE[ev.status]].join(" ")}>
+                                  <span
+                                    className={[
+                                      "inline-flex items-center rounded-full px-3 py-1 text-xs ring-1",
+                                      STATUS_BADGE[ev.status],
+                                    ].join(" ")}
+                                  >
                                     {STATUS_LABEL[ev.status]}
                                   </span>
                                 ) : (
@@ -498,9 +490,7 @@ export default function DetailsDrawer({
                                 </div>
                               ) : null}
 
-                              {ev.description ? (
-                                <div className="mt-3 text-sm text-slate-700 leading-6">{ev.description}</div>
-                              ) : null}
+                              {ev.description ? <div className="mt-3 text-sm text-slate-700 leading-6">{ev.description}</div> : null}
                             </div>
                           </div>
                         </li>
@@ -513,12 +503,12 @@ export default function DetailsDrawer({
         ) : tab === "payment" ? (
           <div ref={paymentRef} className="rounded-2xl bg-white">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-              <div className="rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div className={cardClass()}>
                 <div className="text-xs text-slate-500 uppercase tracking-wide">To‘lov usuli</div>
                 <div className="font-semibold mt-2 text-slate-900">{order.paymentMethod}</div>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 p-4 shadow-sm lg:col-span-2">
+              <div className={`${cardClass()} lg:col-span-2`}>
                 <div className="text-xs text-slate-500 uppercase tracking-wide">Summalar</div>
                 <div className="mt-3 space-y-2 text-sm">
                   <Row label="Mahsulot" value={<b>{money(order.productValue.amount, order.productValue.currency)}</b>} />
@@ -533,7 +523,6 @@ export default function DetailsDrawer({
               </div>
             </div>
 
-            {/* Receipt preview */}
             <div className="mt-4">
               <div className="text-sm font-semibold text-slate-900 mb-2">To‘lov cheki</div>
 
@@ -561,7 +550,7 @@ export default function DetailsDrawer({
                 </div>
 
                 <div className="mt-4 text-[11px] text-slate-500">
-                  * Ushbu чек elektron ko‘rinishda. Savollar bo‘lsa диспетчерга murojaat qiling.
+                  * Ushbu chek elektron ko‘rinishda. Savollar bo‘lsa диспетчерга murojaat qiling.
                 </div>
               </div>
             </div>
@@ -605,58 +594,29 @@ export default function DetailsDrawer({
           </div>
         ) : (
           <div ref={historyRef} className="rounded-2xl bg-white">
-            <div className="rounded-2xl border border-slate-200 p-4 shadow-sm">
-              <div className="flex items-center justify-between gap-2">
-                <div>
-                  <div className="text-sm font-semibold text-slate-900">O‘zgarishlar tarixi</div>
-                  <div className="text-xs text-slate-500">Kim, qachon, nimani o‘zgartirdi</div>
-                </div>
-              </div>
+    <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
+      {/* Header */}
+      <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3">
+        <div>
+          <div className="text-sm font-semibold text-slate-900">O‘zgarishlar tarixi</div>
+          <div className="text-xs text-slate-500">Kim, qachon, nimani o‘zgartirdi</div>
+        </div>
 
-              <div className="mt-4 space-y-3">
-                {order.history?.length ? (
-                  order.history
-                    .slice()
-                    .sort((a, b) => new Date(b.ts).getTime() - new Date(a.ts).getTime())
-                    .map((h) => (
-                      <div key={h.id} className="rounded-2xl border border-slate-200 p-4 bg-white">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="text-sm font-semibold text-slate-900">{h.actorName}</div>
-                          <div className="text-xs text-slate-500">{fmtDate(h.ts)}</div>
-                        </div>
+        <div className="text-xs text-slate-500">
+          Jami: <b className="text-slate-900">{order.history?.length ?? 0}</b>
+        </div>
+      </div>
 
-                        <div className="mt-2 text-sm text-slate-700">
-                          <span className="font-semibold">{humanAction(h.action)}</span>
-                          {h.field ? (
-                            <>
-                              {" "}
-                              • Field: <b>{h.field}</b>
-                            </>
-                          ) : null}
-                        </div>
-
-                        {h.from !== undefined || h.to !== undefined ? (
-                          <div className="mt-2 text-sm text-slate-600">
-                            <div className="flex gap-2">
-                              <div className="w-16 text-xs text-slate-500">From</div>
-                              <div className="flex-1">{String(h.from ?? "—")}</div>
-                            </div>
-                            <div className="flex gap-2 mt-1">
-                              <div className="w-16 text-xs text-slate-500">To</div>
-                              <div className="flex-1 font-semibold text-slate-900">{String(h.to ?? "—")}</div>
-                            </div>
-                          </div>
-                        ) : null}
-
-                        {h.note ? <div className="mt-2 text-sm text-slate-600">{h.note}</div> : null}
-                      </div>
-                    ))
-                ) : (
-                  <div className="text-sm text-slate-500">Tarix ma’lumotlari yo‘q.</div>
-                )}
-              </div>
-            </div>
-          </div>
+      {/* Body */}
+      <div className="px-5 py-5">
+        {order.history?.length ? (
+          <HistoryTimeline items={order.history} />
+        ) : (
+          <div className="text-sm text-slate-500">Tarix ma’lumotlari yo‘q.</div>
+        )}
+      </div>
+    </div>
+  </div>
         )}
       </div>
     </Modal>
@@ -690,13 +650,10 @@ function ProofCard({
   return (
     <div className="rounded-2xl border border-slate-200 p-4 shadow-sm bg-white">
       <div className="flex items-start justify-between gap-3">
-        <div>
-          <div className="text-xs text-slate-500 uppercase tracking-wide">
-            Tasdiq
-          </div>
-          <div className="text-sm font-semibold text-slate-900 mt-1">
-            {title}
-          </div>
+        <div className="min-w-0">
+          <div className="text-xs text-slate-500 uppercase tracking-wide">Tasdiq</div>
+          <div className="text-sm font-semibold text-slate-900 mt-1">{title}</div>
+
           <div className="text-xs text-slate-500 mt-1">
             {proof?.signedAt ? (
               <>
@@ -715,50 +672,53 @@ function ProofCard({
       </div>
 
       {!proof?.signatureUrl && !proof?.parcelPhotoUrl ? (
-        <div className="mt-3 text-sm text-slate-500">
-          Hozircha imzo/rasm mavjud emas.
-        </div>
+        <div className="mt-3 text-sm text-slate-500">Hozircha imzo/rasm mavjud emas.</div>
       ) : (
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="mt-4 grid grid-cols-2 gap-3">
           {/* Signature */}
-          <div className="rounded-xl border border-slate-200 p-3">
-            <div className="text-xs text-slate-500 mb-2">Imzo</div>
-            {proof?.signatureUrl ? (
-              <img
-                src={proof.signatureUrl}
-                alt="signature"
-                className="h-28 w-full object-contain bg-white"
-                crossOrigin="anonymous"
-              />
-            ) : (
-              <div className="h-28 rounded-lg bg-slate-50 flex items-center justify-center text-sm text-slate-400">
-                Imzo yo‘q
-              </div>
-            )}
-          </div>
+          <MediaTile label="Imzo" kind="signature" src={proof?.signatureUrl} />
 
           {/* Parcel photo */}
-          <div className="rounded-xl border border-slate-200 p-3">
-            <div className="text-xs text-slate-500 mb-2">Posilka rasmi</div>
-            {proof?.parcelPhotoUrl ? (
-              <img
-                src={proof.parcelPhotoUrl}
-                alt="parcel"
-                className="h-28 w-full object-cover rounded-lg"
-                crossOrigin="anonymous"
-              />
-            ) : (
-              <div className="h-28 rounded-lg bg-slate-50 flex items-center justify-center text-sm text-slate-400">
-                Rasm yo‘q
-              </div>
-            )}
-          </div>
+          <MediaTile label="Posilka rasmi" kind="photo" src={proof?.parcelPhotoUrl} />
         </div>
       )}
     </div>
   );
 }
 
+function MediaTile({
+  label,
+  src,
+  kind,
+}: {
+  label: string;
+  src?: string;
+  kind: "signature" | "photo";
+}) {
+  return (
+    <div className="rounded-xl border border-slate-200 overflow-hidden">
+      <div className="px-3 py-2 bg-slate-50 border-b border-slate-200">
+        <div className="text-[11px] font-medium text-slate-600">{label}</div>
+      </div>
+
+      <div className="h-40 bg-white flex items-center justify-center">
+        {src ? (
+          <img
+            src={src}
+            alt={label}
+            className={[
+              "h-full w-full",
+              kind === "signature" ? "object-contain" : "object-cover",
+            ].join(" ")}
+            crossOrigin="anonymous"
+          />
+        ) : (
+          <div className="text-sm text-slate-400">{kind === "signature" ? "Imzo yo‘q" : "Rasm yo‘q"}</div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function humanAction(a: string) {
   switch (a) {
@@ -776,3 +736,149 @@ function humanAction(a: string) {
       return a;
   }
 }
+
+
+
+
+function HistoryTimeline({ items }: { items: Array<any> }) {
+  const sorted = items
+    .slice()
+    .sort((a, b) => new Date(b.ts).getTime() - new Date(a.ts).getTime());
+
+  return (
+    <ol className="relative">
+      {/* vertical line */}
+      <div className="absolute left-[14px] top-0 bottom-0 w-px bg-gradient-to-b from-slate-200 via-slate-200 to-transparent" />
+
+      <div className="space-y-3">
+        {sorted.map((h, idx) => {
+          const tone = actionTone(h.action);
+          const isFirst = idx === 0;
+
+          return (
+            <li key={h.id} className="relative pl-10">
+              {/* dot */}
+              <div
+                className={[
+                  "absolute left-[8px] top-[18px] h-3.5 w-3.5 rounded-full ring-4 ring-white",
+                  isFirst ? "bg-slate-900 shadow-sm" : "bg-slate-400",
+                ].join(" ")}
+              />
+
+              <div
+                className={[
+                  "rounded-2xl border bg-white p-4 transition",
+                  "hover:shadow-sm hover:-translate-y-[1px]",
+                  tone.border,
+                ].join(" ")}
+              >
+                {/* top row */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <div className="text-sm font-semibold text-slate-900 truncate">{h.actorName}</div>
+
+                      <span className={["inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium ring-1", tone.badge].join(" ")}>
+                        {humanAction(h.action)}
+                      </span>
+
+                      {h.field ? (
+                        <span className="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1 text-[11px] text-slate-600 ring-1 ring-slate-200">
+                          Field: <b className="ml-1 text-slate-900">{h.field}</b>
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {h.note ? (
+                      <div className="mt-2 text-sm text-slate-700 leading-6">
+                        {h.note}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <div className="shrink-0 text-xs text-slate-500 whitespace-nowrap">
+                    {fmtDate(h.ts)}
+                  </div>
+                </div>
+
+                {/* from -> to */}
+                {(h.from !== undefined || h.to !== undefined) ? (
+                  <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <KV title="From" value={String(h.from ?? "—")} muted />
+                    <KV title="To" value={String(h.to ?? "—")} strong />
+                  </div>
+                ) : null}
+              </div>
+            </li>
+          );
+        })}
+      </div>
+    </ol>
+  );
+}
+
+function KV({
+  title,
+  value,
+  muted,
+  strong,
+}: {
+  title: string;
+  value: string;
+  muted?: boolean;
+  strong?: boolean;
+}) {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+      <div className="text-[11px] text-slate-500">{title}</div>
+      <div
+        className={[
+          "mt-0.5 text-sm",
+          muted ? "text-slate-600" : "text-slate-700",
+          strong ? "font-semibold text-slate-900" : "",
+          "truncate",
+        ].join(" ")}
+        title={value}
+      >
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function actionTone(action: string) {
+  // ranglarni minimal, zamonaviy (pastel) qilib berdim
+  switch (action) {
+    case "status_change":
+      return {
+        badge: "bg-indigo-50 text-indigo-700 ring-indigo-200",
+        border: "border-indigo-100",
+      };
+    case "assign_courier":
+      return {
+        badge: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+        border: "border-emerald-100",
+      };
+    case "payment":
+      return {
+        badge: "bg-amber-50 text-amber-700 ring-amber-200",
+        border: "border-amber-100",
+      };
+    case "update":
+      return {
+        badge: "bg-slate-50 text-slate-700 ring-slate-200",
+        border: "border-slate-200",
+      };
+    case "create":
+      return {
+        badge: "bg-sky-50 text-sky-700 ring-sky-200",
+        border: "border-sky-100",
+      };
+    default:
+      return {
+        badge: "bg-slate-50 text-slate-700 ring-slate-200",
+        border: "border-slate-200",
+      };
+  }
+}
+

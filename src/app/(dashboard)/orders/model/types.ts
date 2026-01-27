@@ -79,13 +79,27 @@ export type OrderRoute = {
 
 /* =========================
  * Proofs (signature + parcel photo)
- * ========================= */
+ * ========================= *
+ * UI (ProofCard) kutadigan fieldlar:
+ * - signatureUrl
+ * - parcelPhotoUrl
+ * - signedAt
+ * - signedByName
+ *
+ * Kelajakda backend EmployeeRef qaytarsa ishlatish uchun:
+ * - signedBy (optional)
+ */
 
 export type ProofMedia = {
-  signatureUrl?: string; // imzo rasmi (png/jpg) - same-origin bo‘lsa zo‘r
+  signatureUrl?: string; // imzo rasmi (png/jpg)
   parcelPhotoUrl?: string; // posilka rasmi (png/jpg)
   signedAt?: IsoDateString;
-  signedBy?: EmployeeRef; // kim tasdiqladi (optional)
+
+  // ✅ UI bilan mos (ProofCard signedByName ishlatyapti)
+  signedByName?: string;
+
+  // ✅ kelajakda kerak bo‘lsa (backenddan kelishi mumkin)
+  signedBy?: EmployeeRef;
 };
 
 /* =========================
@@ -104,7 +118,7 @@ export type OrderHistoryItem = {
   id: string;
   ts: IsoDateString;
 
-  actorName: string; // backendda actorName bo‘lsa shunday qoldiramiz
+  actorName: string;
   action: OrderHistoryAction;
 
   field?: string;
@@ -128,17 +142,13 @@ export type OrderEvent = {
   title: string;
   description?: string;
 
-  // status eventlar uchun (timeline badge)
   status?: OrderStatus;
 
-  // oddiy string (loglarda)
   by?: string;
 
-  // ✅ siz so‘ragan: qaysi xodim yubordi / qaysi xodim qabul qildi
   senderEmployee?: EmployeeRef;
   receiverEmployee?: EmployeeRef;
 
-  // kelajakda kerak bo‘lsa:
   meta?: Record<string, unknown>;
 };
 
@@ -153,8 +163,8 @@ export type Order = {
 
   createdAt: IsoDateString;
   scheduledDate: DateYMD;
-  timeFrom?: string; // "09:00"
-  timeTo?: string; // "18:00"
+  timeFrom?: string;
+  timeTo?: string;
 
   status: OrderStatus;
   slaRisk: "low" | "medium" | "high";
@@ -178,13 +188,12 @@ export type Order = {
 
   events: OrderEvent[];
 
-  // Optional sections
   route?: OrderRoute;
   history?: OrderHistoryItem[];
 
-  // ✅ NEW: imzo + posilka rasm(lar)i
-  pickupProof?: ProofMedia;   // yuboruvchidan qabul qilish (pickup)
-  deliveryProof?: ProofMedia; // qabul qiluvchiga topshirish (delivery)
+  // ✅ Proofs
+  pickupProof?: ProofMedia | null;
+  deliveryProof?: ProofMedia | null;
 };
 
 /* =========================
