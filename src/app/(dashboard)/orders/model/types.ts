@@ -1,3 +1,7 @@
+/* =========================
+ * Primitive / shared types
+ * ========================= */
+
 export type OrderStatus =
   | "processing"
   | "assigned"
@@ -11,7 +15,23 @@ export type OrderStatus =
 
 export type PaymentMethod = "cash" | "card" | "transfer";
 
-export type GeoPoint = { lat: number; lng: number };
+export type Currency = "UZS" | "USD" | "EUR";
+
+export type Money = {
+  amount: number;
+  currency: Currency;
+};
+
+export type GeoPoint = {
+  lat: number;
+  lng: number;
+};
+
+export type LatLngTuple = [number, number];
+
+/* =========================
+ * Parties / actors
+ * ========================= */
 
 export type Party = {
   name: string;
@@ -22,61 +42,97 @@ export type Party = {
   geo: GeoPoint;
 };
 
+export type CourierVehicle = "bike" | "car" | "van" | "truck";
+
 export type Courier = {
   id: string;
   name: string;
   phone: string;
-  vehicle: "bike" | "car" | "van" | "truck";
+  vehicle: CourierVehicle;
   active: boolean;
 };
+
+export type EmployeeRef = {
+  id: string;
+  name: string;
+  role?: string; // masalan: Operator, Dispatcher, Kassir, Omborchi, Kuryer
+};
+
+/* =========================
+ * Order route
+ * ========================= */
 
 export type OrderRoute = {
   distanceKm?: number;
   etaMin?: number;
-  polyline?: [number, number][];
+  polyline?: LatLngTuple[];
 };
+
+/* =========================
+ * Order history (audit)
+ * ========================= */
+
+export type OrderHistoryAction =
+  | "create"
+  | "update"
+  | "status_change"
+  | "assign_courier"
+  | "payment"
+  | (string & {});
 
 export type OrderHistoryItem = {
   id: string;
   ts: string; // ISO date
   actorName: string;
-  action: "create" | "update" | "status_change" | "assign_courier" | "payment" | string;
+  action: OrderHistoryAction;
   field?: string;
+
   from?: string | number | null;
   to?: string | number | null;
   note?: string | null;
 };
 
+/* =========================
+ * Order events (timeline)
+ * ========================= */
+
+export type OrderEventType =
+  | "status"
+  | "note"
+  | "system"
+  | "payment"; // kelajakda kerak bo‘lishi mumkin
+
 export type OrderEvent = {
   id: string;
   ts: string; // ISO
-  type: "status" | "note" | "system";
+  type: OrderEventType;
+
   title: string;
   description?: string;
-  status?: OrderStatus;
-  by?: string;
-  senderEmployee?: {
-    id: string;
-    name: string;
-    role?: string; // masalan: Operator, Dispatcher
-  };
 
-  receiverEmployee?: {
-    id: string;
-    name: string;
-    role?: string;
-  };
+  // status eventlar uchun (timeline’da badge)
+  status?: OrderStatus;
+
+  // kim yozgani/trigger qilgani (oddiy string)
+  by?: string;
+
+  // kim yubordi / kim qabul qildi (siz so‘ragan blok)
+  senderEmployee?: EmployeeRef;
+  receiverEmployee?: EmployeeRef;
 };
 
-export type Money = { amount: number; currency: "UZS" | "USD" | "EUR" };
+/* =========================
+ * Order main
+ * ========================= */
 
 export type Order = {
   id: string;
   code: string;
   barcode: string;
 
-  route?: OrderRoute;            // ✅ ADD
-  history?: OrderHistoryItem[];  // ✅ ADD
+  // Optional sections
+  route?: OrderRoute;
+  history?: OrderHistoryItem[];
 
   createdAt: string; // ISO
   scheduledDate: string; // YYYY-MM-DD
@@ -89,6 +145,7 @@ export type Order = {
   sender: Party;
   recipient: Party;
 
+  // courierId ba'zan null bo'lishi mumkin
   courierId?: string | null;
 
   productValue: Money;
@@ -106,6 +163,10 @@ export type Order = {
   events: OrderEvent[];
 };
 
+/* =========================
+ * Query / view layer types
+ * ========================= */
+
 export type OrderQuery = {
   q?: string;
   statuses?: OrderStatus[];
@@ -113,13 +174,17 @@ export type OrderQuery = {
   dateTo?: string;
   city?: string;
   courierId?: string | null;
+
   minTotal?: number;
   maxTotal?: number;
+
   slaRisk?: Array<"low" | "medium" | "high">;
 };
 
+export type OrderSortKey = "createdAt" | "scheduledDate" | "total" | "status";
+
 export type OrderSort = {
-  key: "createdAt" | "scheduledDate" | "total" | "status";
+  key: OrderSortKey;
   dir: "asc" | "desc";
 };
 
