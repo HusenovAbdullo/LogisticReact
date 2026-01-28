@@ -1,4 +1,3 @@
-// src/components/dashboard/sidebar/Sidebar.tsx
 "use client";
 
 import Link from "next/link";
@@ -45,11 +44,16 @@ export function Sidebar({
         href: ROUTES.dashboard,
         label: t("dashboard"),
         icon: IconGrid,
-        // children: [
-        //   { href: ROUTES.dashboard1, label: t("dashboard_1") },
-        //   { href: ROUTES.dashboard2, label: t("dashboard_2") },
-        // ],
       },
+
+      // ✅ Zakaz yaratish: alohida menu
+      {
+        key: "create-order",
+        href: ROUTES.createOrder,
+        label: t("create_order") ?? "Zakaz yaratish",
+        icon: IconBox,
+      },
+
       { key: "shipments", href: ROUTES.orders, label: t("shipments"), icon: IconBox },
       { key: "delivery", href: ROUTES.warehouse, label: t("delivery"), icon: IconTruck },
       { key: "clients", href: ROUTES.couriers, label: t("clients"), icon: IconUsers },
@@ -80,6 +84,7 @@ export function Sidebar({
 
   function isActiveGroup(item: NavGroup) {
     if (pathname === item.href) return true;
+    if (item.href !== "/" && pathname.startsWith(item.href + "/")) return true;
     return (item.children ?? []).some((c) => pathname === c.href);
   }
 

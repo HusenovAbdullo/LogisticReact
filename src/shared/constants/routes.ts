@@ -5,6 +5,8 @@ export const ROUTES = {
   warehouse: "/warehouse",
   couriers: "/couriers",
 
+  createOrder: "/create-order",
+
   dashboard1: "/dashboard/one",
   dashboard2: "/dashboard/two",
 } as const;

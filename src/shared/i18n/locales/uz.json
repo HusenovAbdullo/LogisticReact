@@ -72,6 +72,6 @@
   "weather_snow": "Qor",
   "weather_thunderstorm": "Momaqaldiroq",
   "logout": "Chiqish",
-"logging_out": "Chiqilmoqda..."
-
+  "logging_out": "Chiqilmoqda...",
+  "create_order": "Zakaz yaratish"
 }
