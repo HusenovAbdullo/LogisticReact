@@ -222,6 +222,18 @@ export type OrderSort = {
   dir: "asc" | "desc";
 };
 
+export type BagStatus = "created" | "handover";
+
+export type Bag = {
+  id: string;
+  bagNo: string;            // masalan: BAG-000012
+  courierId: string;
+  orderIds: string[];       // qop ichidagi zakazlar
+  createdAt: string;
+  status: BagStatus;
+};
+
+
 export type Paged<T> = {
   items: T[];
   page: number;
