@@ -23,6 +23,36 @@ type NavGroup = {
   children?: NavChild[];
 };
 
+/** Agar sizning icons set'ingizda "database" yo'q bo'lsa, shu yerda minimal icon berib qo'ydim */
+function IconDatabase({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 3c4.97 0 9 1.57 9 3.5S16.97 10 12 10 3 8.43 3 6.5 7.03 3 12 3Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M21 6.5V12c0 1.93-4.03 3.5-9 3.5S3 13.93 3 12V6.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M21 12v5.5c0 1.93-4.03 3.5-9 3.5S3 19.43 3 17.5V12"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
+
 export function Sidebar({
   mobileOpen,
   setMobileOpen,
@@ -37,8 +67,23 @@ export function Sidebar({
   const { locale } = useLocale();
   const { t } = useI18n(locale);
 
-  const NAV: NavGroup[] = useMemo(
-    () => [
+  // ⚠️ ROUTES ichida yo'qlar bo'lsa ham ishlashi uchun fallback string yo'llar berildi
+  const MALUMOTLAR = {
+    root: (ROUTES as any)?.malumotlar ?? "/malumotlar",
+    adminlar: (ROUTES as any)?.malumotlarAdminlar ?? "/malumotlar/adminlar",
+    xodimlar: (ROUTES as any)?.malumotlarXodimlar ?? "/malumotlar/xodimlar",
+    foydalanuvchilar:
+      (ROUTES as any)?.malumotlarFoydalanuvchilar ??
+      "/malumotlar/foydalanuvchilar",
+    magazinlar:
+      (ROUTES as any)?.malumotlarMagazinlar ?? "/malumotlar/magazinlar",
+    skladlar: (ROUTES as any)?.malumotlarSkladlar ?? "/malumotlar/skladlar",
+    ofislar: (ROUTES as any)?.malumotlarOfislar ?? "/malumotlar/ofislar",
+    hududlar: (ROUTES as any)?.malumotlarHududlar ?? "/malumotlar/hududlar",
+  };
+
+  const NAV: NavGroup[] = useMemo(() => {
+    return [
       {
         key: "dashboard",
         href: ROUTES.dashboard,
@@ -57,16 +102,45 @@ export function Sidebar({
       { key: "shipments", href: ROUTES.orders, label: t("shipments"), icon: IconBox },
       { key: "delivery", href: ROUTES.warehouse, label: t("delivery"), icon: IconTruck },
       { key: "clients", href: ROUTES.couriers, label: t("clients"), icon: IconUsers },
-    ],
-    [t],
-  );
 
-  const [openKey, setOpenKey] = useState<string>(() => {
-    const hit = NAV.find((n) =>
-      (n.children ?? []).some((c) => pathname === c.href),
-    );
+      // ✅ YANGI: Ma'lumotlar (submenu bilan)
+      {
+        key: "malumotlar",
+        href: MALUMOTLAR.root,
+        label: t("Malumotlar") ?? "Ma'lumotlar",
+        icon: IconDatabase,
+        children: [
+          { href: MALUMOTLAR.adminlar, label: t("Adminlar") ?? "Adminlar" },
+          { href: MALUMOTLAR.xodimlar, label: t("Xodimlar") ?? "Xodimlar" },
+          {
+            href: MALUMOTLAR.foydalanuvchilar,
+            label: t("Foydalanuvchilar") ?? "Foydalanuvchilar",
+          },
+          { href: MALUMOTLAR.magazinlar, label: t("Magazinlar") ?? "Magazinlar" },
+          { href: MALUMOTLAR.skladlar, label: t("Skladlar") ?? "Skladlar" },
+          { href: MALUMOTLAR.ofislar, label: t("Ofislar") ?? "Ofislar" },
+          { href: MALUMOTLAR.hududlar, label: t("Hududlar") ?? "Hududlar" },
+        ],
+      },
+    ];
+  }, [t]);
+
+  function getOpenKeyByPath(path: string) {
+    const hit = NAV.find((n) => {
+      if (path === n.href) return true;
+      if (n.href !== "/" && path.startsWith(n.href + "/")) return true;
+      return (n.children ?? []).some((c) => c.href === path);
+    });
     return hit?.key ?? "dashboard";
-  });
+  }
+
+  const [openKey, setOpenKey] = useState<string>(() => getOpenKeyByPath(pathname));
+
+  // ✅ locale/menu o'zgarsa ham openKey sinxron bo'lsin
+  useEffect(() => {
+    setOpenKey(getOpenKeyByPath(pathname));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, NAV]);
 
   useEffect(() => setMobileOpen(false), [pathname, setMobileOpen]);
 
@@ -92,7 +166,8 @@ export function Sidebar({
     const isExpanded = forceExpanded ?? expanded;
 
     return (
-      <div className="h-full bg-white dark:bg-slate-900">
+      <div className="flex h-full flex-col bg-white dark:bg-slate-900">
+
         <div
           className={[
             "flex items-center gap-3 pt-6",
@@ -122,7 +197,13 @@ export function Sidebar({
           </button>
         </div>
 
-        <div className={["mt-8", collapsed ? "px-3" : "px-5"].join(" ")}>
+        <div
+  className={[
+    "mt-8 flex-1 overflow-y-auto overscroll-contain",
+    collapsed ? "px-3" : "px-5",
+  ].join(" ")}
+>
+
           {isExpanded && (
             <div className="px-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
               {t("menu")}
@@ -146,8 +227,13 @@ export function Sidebar({
                   <button
                     type="button"
                     onClick={() => {
+                      // collapsed holatda: doim group href ga o'tadi
                       if (!isExpanded) return router.push(item.href);
+
+                      // expanded holatda:
                       if (!hasChildren) return router.push(item.href);
+
+                      // children bo'lsa: dropdown toggle
                       setOpenKey((k) => (k === item.key ? "" : item.key));
                     }}
                     className={[
