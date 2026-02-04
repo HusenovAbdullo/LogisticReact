@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const items = [
+  { href: "/malumotlar/umumiy", title: "Umumiy", desc: "Ma’lumotlar bo‘limidagi barcha ro‘yxatlar" },
   { href: "/malumotlar/adminlar", title: "Adminlar", desc: "Asosiy adminlar ro‘yxati" },
   { href: "/malumotlar/xodimlar", title: "Xodimlar", desc: "Xodimlar ro‘yxati" },
   { href: "/malumotlar/foydalanuvchilar", title: "Foydalanuvchilar", desc: "Sender va receiver" },

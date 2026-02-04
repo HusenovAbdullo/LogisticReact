@@ -9,6 +9,8 @@ import EntityDetails from "../_components/EntityDetails";
 import { Button, IconButton } from "../_components/Buttons";
 import { useHududStore } from "../_lib/useHudud";
 import type { Country, District, Locality, Region } from "../_lib/types";
+import { getCountryAdvancedFilter, getDistrictAdvancedFilter, getLocalityAdvancedFilter, getRegionAdvancedFilter } from "./filters";
+import TerritoryPicker from "./TerritoryPicker";
 
 type Tab = "countries" | "regions" | "districts" | "localities";
 type Mode = "view" | "edit" | "create";
@@ -26,6 +28,12 @@ export default function Page() {
   const regions = state.regions.filter((r) => !countryId || r.countryId === countryId);
   const districts = state.districts.filter((d) => !regionId || d.regionId === regionId);
   const localities = state.localities.filter((l) => !districtId || l.districtId === districtId);
+
+  // Advanced filters (tab-level)
+  const countryFilter = useMemo(() => getCountryAdvancedFilter(countries), [countries]);
+  const regionFilter = useMemo(() => getRegionAdvancedFilter(regions, countries), [regions, countries]);
+  const districtFilter = useMemo(() => getDistrictAdvancedFilter(districts, regions), [districts, regions]);
+  const localityFilter = useMemo(() => getLocalityAdvancedFilter(localities, districts), [localities, districts]);
 
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<Mode>("view");
@@ -53,10 +61,10 @@ export default function Page() {
   const openCreate = () => {
     setActive(null);
     setMode("create");
-    if (tab === "countries") setDraft({ name: "", code: "" });
-    if (tab === "regions") setDraft({ countryId: countryId ?? countries[0]?.id ?? "", name: "" });
-    if (tab === "districts") setDraft({ regionId: regionId ?? regions[0]?.id ?? "", name: "" });
-    if (tab === "localities") setDraft({ districtId: districtId ?? districts[0]?.id ?? "", name: "", kind: "mahalla" });
+    if (tab === "countries") setDraft({ name: "", code: "", territory: null });
+    if (tab === "regions") setDraft({ countryId: countryId ?? countries[0]?.id ?? "", name: "", territory: null });
+    if (tab === "districts") setDraft({ regionId: regionId ?? regions[0]?.id ?? "", name: "", territory: null });
+    if (tab === "localities") setDraft({ districtId: districtId ?? districts[0]?.id ?? "", name: "", kind: "mahalla", territory: null });
     setOpen(true);
   };
 
@@ -165,6 +173,7 @@ export default function Page() {
         {tab === "countries" ? (
           <DataTable<Country>
             rows={countries}
+            advancedFilter={countryFilter}
             searchKeys={["name", "code"]}
             columns={[
               { key: "name", header: "Davlat", render: (r) => <span className="font-medium text-slate-900">{r.name}</span> },
@@ -183,7 +192,8 @@ export default function Page() {
         {tab === "regions" ? (
           <DataTable<Region>
             rows={regions}
-            searchKeys={["name", "countryId"]}
+            advancedFilter={regionFilter}
+                        searchKeys={["name", "countryId"]}
             columns={[
               {
                 key: "name",
@@ -210,7 +220,8 @@ export default function Page() {
         {tab === "districts" ? (
           <DataTable<District>
             rows={districts}
-            searchKeys={["name", "regionId"]}
+            advancedFilter={districtFilter}
+                        searchKeys={["name", "regionId"]}
             columns={[
               { key: "name", header: "Tuman", render: (r) => <span className="font-medium text-slate-900">{r.name}</span> },
               {
@@ -233,7 +244,8 @@ export default function Page() {
         {tab === "localities" ? (
           <DataTable<Locality>
             rows={localities}
-            searchKeys={["name", "kind", "districtId"]}
+            advancedFilter={localityFilter}
+                        searchKeys={["name", "kind", "districtId"]}
             columns={[
               { key: "name", header: "Nomi", render: (r) => <span className="font-medium text-slate-900">{r.name}</span> },
               { key: "kind", header: "Turi", render: (r) => r.kind ?? "-" },
@@ -286,15 +298,15 @@ export default function Page() {
               <Button
                 onClick={() => {
                   if (mode === "create") {
-                    if (tab === "countries") api.addCountry(draft.name, draft.code);
-                    if (tab === "regions") api.addRegion(draft.countryId, draft.name);
-                    if (tab === "districts") api.addDistrict(draft.regionId, draft.name);
-                    if (tab === "localities") api.addLocality(draft.districtId, draft.name, draft.kind);
+                    if (tab === "countries") api.addCountry(draft.name, draft.code, draft.territory ?? null);
+                    if (tab === "regions") api.addRegion(draft.countryId, draft.name, draft.territory ?? null);
+                    if (tab === "districts") api.addDistrict(draft.regionId, draft.name, draft.territory ?? null);
+                    if (tab === "localities") api.addLocality(draft.districtId, draft.name, draft.kind, draft.territory ?? null);
                   } else if (mode === "edit" && active) {
-                    if (tab === "countries") api.updateCountry(active.id, { name: draft.name, code: draft.code });
-                    if (tab === "regions") api.updateRegion(active.id, { name: draft.name, countryId: draft.countryId });
-                    if (tab === "districts") api.updateDistrict(active.id, { name: draft.name, regionId: draft.regionId });
-                    if (tab === "localities") api.updateLocality(active.id, { name: draft.name, kind: draft.kind, districtId: draft.districtId });
+                    if (tab === "countries") api.updateCountry(active.id, { name: draft.name, code: draft.code, territory: draft.territory ?? null });
+                    if (tab === "regions") api.updateRegion(active.id, { name: draft.name, countryId: draft.countryId, territory: draft.territory ?? null });
+                    if (tab === "districts") api.updateDistrict(active.id, { name: draft.name, regionId: draft.regionId, territory: draft.territory ?? null });
+                    if (tab === "localities") api.updateLocality(active.id, { name: draft.name, kind: draft.kind, districtId: draft.districtId, territory: draft.territory ?? null });
                   }
                   close();
                 }}
@@ -306,9 +318,10 @@ export default function Page() {
         }
       >
         {mode === "view" && active ? (
-          <EntityDetails
-            title="Ma’lumot"
-            data={(() => {
+          <div className="space-y-6">
+            <EntityDetails
+              title="Ma’lumot"
+              data={(() => {
               if (tab === "countries") {
                 const r = active as Country;
                 return { Davlat: r.name, Kod: r.code, "Yaratilgan": r.createdAt, "Yangilangan": r.updatedAt, ID: r.id };
@@ -343,67 +356,116 @@ export default function Page() {
                 ID: r.id,
               };
             })()}
-          />
+            />
+
+            {(active as any)?.territory ? (
+              <TerritoryPicker
+                label="Territoriya (ko‘rish)"
+                mainLabel={(active as any)?.name ?? undefined}
+                value={(active as any).territory}
+                overlays={(() => {
+                  if (!active) return [];
+                  if (tab === "countries") {
+                    const c = active as Country;
+                    return state.regions
+                      .filter((r) => r.countryId === c.id && r.territory)
+                      .map((r) => ({
+                        ...(r.territory as any),
+                        properties: { ...((r.territory as any).properties ?? {}), _label: r.name },
+                      }));
+                  }
+                  if (tab === "regions") {
+                    const r = active as Region;
+                    return state.districts
+                      .filter((d) => d.regionId === r.id && d.territory)
+                      .map((d) => ({
+                        ...(d.territory as any),
+                        properties: { ...((d.territory as any).properties ?? {}), _label: d.name },
+                      }));
+                  }
+                  if (tab === "districts") {
+                    const d = active as District;
+                    return state.localities
+                      .filter((l) => l.districtId === d.id && l.territory)
+                      .map((l) => ({
+                        ...(l.territory as any),
+                        properties: { ...((l.territory as any).properties ?? {}), _label: l.name },
+                      }));
+                  }
+                  return [];
+                })()}
+                readOnly
+                height={360}
+              />
+            ) : null}
+          </div>
         ) : null}
 
         {mode !== "view" && draft ? (
-          <FormBuilder
-            value={draft}
-            onChange={setDraft}
-            fields={(() => {
-              if (tab === "countries") {
-                return [
-                  { key: "name", label: "Davlat nomi", required: true },
-                  { key: "code", label: "Kod (ixtiyoriy)", placeholder: "UZ" },
-                ] as any;
-              }
-              if (tab === "regions") {
+          <div className="space-y-6">
+            <FormBuilder
+              value={draft}
+              onChange={setDraft}
+              fields={(() => {
+                if (tab === "countries") {
+                  return [
+                    { key: "name", label: "Davlat nomi", required: true },
+                    { key: "code", label: "Kod (ixtiyoriy)", placeholder: "UZ" },
+                  ] as any;
+                }
+                if (tab === "regions") {
+                  return [
+                    {
+                      key: "countryId",
+                      label: "Davlat",
+                      type: "select",
+                      options: countries.map((c) => ({ value: c.id, label: c.name })),
+                    },
+                    { key: "name", label: "Viloyat nomi", required: true },
+                  ] as any;
+                }
+                if (tab === "districts") {
+                  return [
+                    {
+                      key: "regionId",
+                      label: "Viloyat",
+                      type: "select",
+                      options: state.regions
+                        .filter((r) => !countryId || r.countryId === countryId)
+                        .map((r) => ({ value: r.id, label: r.name })),
+                    },
+                    { key: "name", label: "Tuman nomi", required: true },
+                  ] as any;
+                }
                 return [
                   {
-                    key: "countryId",
-                    label: "Davlat",
+                    key: "districtId",
+                    label: "Tuman",
                     type: "select",
-                    options: countries.map((c) => ({ value: c.id, label: c.name })),
+                    options: state.districts
+                      .filter((d) => !regionId || d.regionId === regionId)
+                      .map((d) => ({ value: d.id, label: d.name })),
                   },
-                  { key: "name", label: "Viloyat nomi", required: true },
-                ] as any;
-              }
-              if (tab === "districts") {
-                return [
+                  { key: "name", label: "Nomi", required: true },
                   {
-                    key: "regionId",
-                    label: "Viloyat",
+                    key: "kind",
+                    label: "Turi",
                     type: "select",
-                    options: state.regions
-                      .filter((r) => !countryId || r.countryId === countryId)
-                      .map((r) => ({ value: r.id, label: r.name })),
+                    options: [
+                      { value: "mahalla", label: "mahalla" },
+                      { value: "qishloq", label: "qishloq" },
+                      { value: "kocha", label: "ko‘cha" },
+                    ],
                   },
-                  { key: "name", label: "Tuman nomi", required: true },
                 ] as any;
-              }
-              return [
-                {
-                  key: "districtId",
-                  label: "Tuman",
-                  type: "select",
-                  options: state.districts
-                    .filter((d) => !regionId || d.regionId === regionId)
-                    .map((d) => ({ value: d.id, label: d.name })),
-                },
-                { key: "name", label: "Nomi", required: true },
-                {
-                  key: "kind",
-                  label: "Turi",
-                  type: "select",
-                  options: [
-                    { value: "mahalla", label: "mahalla" },
-                    { value: "qishloq", label: "qishloq" },
-                    { value: "kocha", label: "ko‘cha" },
-                  ],
-                },
-              ] as any;
-            })()}
-          />
+              })()}
+            />
+
+            <TerritoryPicker
+              value={draft.territory ?? null}
+              onChange={(t) => setDraft((p: any) => ({ ...p, territory: t }))}
+            />
+          </div>
         ) : null}
       </Modal>
 
@@ -418,3 +480,4 @@ export default function Page() {
     </PageShell>
   );
 }
+

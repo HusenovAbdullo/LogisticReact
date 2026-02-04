@@ -6,6 +6,8 @@ import { useCrudStore } from "../_lib/useCrud";
 import { base, nowIso } from "../_lib/seed";
 import type { Admin } from "../_lib/types";
 
+import FilterModal, { type AdminFilters } from "./FilterModal";
+
 /**
  * Admin type’ni buzmaymiz.
  * Page darajasida kengaytiramiz.
@@ -34,6 +36,9 @@ type AdminRow = Admin & {
   /** map coords (for CrudPageClient compatibility) */
   latitude?: number;
   longitude?: number;
+  /** oldingi yullar (track) */
+  trackPoints?: { lat: number; lng: number; at: string }[];
+
 };
 
 const ROLE_OPTIONS = ["SuperAdmin", "Admin", "Manager", "Operator"] as const;
@@ -45,6 +50,40 @@ function toNum(v: any): number | undefined {
 
 function uniq(arr: string[]) {
   return Array.from(new Set(arr.filter(Boolean)));
+}
+
+function includesCI(hay: string, needle: string) {
+  const h = String(hay ?? "").toLowerCase();
+  const n = String(needle ?? "").toLowerCase().trim();
+  if (!n) return true;
+  return h.includes(n);
+}
+
+function parseDateMs(v: any): number | null {
+  const s = String(v ?? "").trim();
+  if (!s) return null;
+  const ms = new Date(s).getTime();
+  return Number.isFinite(ms) ? ms : null;
+}
+
+function inDateRange(valueIso: any, from?: string, to?: string) {
+  const v = parseDateMs(valueIso);
+  if (v == null) return false;
+  const f = parseDateMs(from);
+  const t = parseDateMs(to);
+  if (f != null && v < f) return false;
+  if (t != null && v > t) return false;
+  return true;
+}
+
+function inNumRange(v: any, min?: string, max?: string) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return false;
+  const mi = min != null && String(min).trim() !== "" ? Number(min) : null;
+  const ma = max != null && String(max).trim() !== "" ? Number(max) : null;
+  if (mi != null && Number.isFinite(mi) && n < mi) return false;
+  if (ma != null && Number.isFinite(ma) && n > ma) return false;
+  return true;
 }
 
 /**
@@ -113,6 +152,9 @@ function seed(): AdminRow[] {
       lng,
       latitude: lat,
       longitude: lng,
+            // ✅ track (oldingi yo'llar)
+            trackPoints: lat != null && lng != null ? [{ lat, lng, at: nowIso() }] : [],
+
     } as any);
 
   return [
@@ -206,83 +248,6 @@ export default function Page() {
   const seedFn = useCallback(seed, []);
   const { ready, items, api } = useCrudStore<AdminRow>("malumotlar_adminlar", seedFn);
 
-  // =========================
-  // FILTER
-  // =========================
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    q: "",
-    status: "" as "" | "active" | "blocked",
-    primaryRole: "" as "" | "SuperAdmin" | "Admin",
-    roles: [] as string[],
-    activeFrom: "",
-    activeTo: "",
-  });
-
-  const filteredRows = useMemo(() => {
-    let out = items ?? [];
-
-    const q = filters.q.trim().toLowerCase();
-    if (q) {
-      out = out.filter((r) => {
-        const roles = normalizeRoles(r).join(" ");
-        const blob = [
-          (r as any).fullName,
-          (r as any).phone,
-          (r as any).email,
-          (r as any).status,
-          (r as any).role,
-          (r as any).rolesText,
-          roles,
-          (r as any).address,
-          (r as any).activeAt,
-          String((r as any).lat ?? (r as any).latitude ?? ""),
-          String((r as any).lng ?? (r as any).longitude ?? ""),
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-
-        return blob.includes(q);
-      });
-    }
-
-    if (filters.status) {
-      out = out.filter((r) => String((r as any).status) === filters.status);
-    }
-
-    if (filters.primaryRole) {
-      out = out.filter((r) => String((r as any).role) === filters.primaryRole);
-    }
-
-    if (filters.roles.length) {
-      out = out.filter((r) => {
-        const have = normalizeRoles(r);
-        return filters.roles.some((x) => have.includes(x));
-      });
-    }
-
-    const fromMs = filters.activeFrom ? new Date(filters.activeFrom).getTime() : NaN;
-    const toMs = filters.activeTo ? new Date(filters.activeTo).getTime() : NaN;
-
-    if (!Number.isNaN(fromMs)) {
-      out = out.filter((r) => {
-        const ms = r.activeAt ? new Date(r.activeAt).getTime() : NaN;
-        return !Number.isNaN(ms) && ms >= fromMs;
-      });
-    }
-    if (!Number.isNaN(toMs)) {
-      out = out.filter((r) => {
-        const ms = r.activeAt ? new Date(r.activeAt).getTime() : NaN;
-        return !Number.isNaN(ms) && ms <= toMs;
-      });
-    }
-
-    return out;
-  }, [items, filters]);
-
-  // =========================
-  // TABLE COLUMNS
   // =========================
   const columns = useMemo(
     () => [
@@ -380,11 +345,10 @@ export default function Page() {
   const fields = useMemo(
     () =>
       [
+        { key: "avatarUrl", label: "Rasm", type: "image", colSpan: 2 },
         { key: "fullName", label: "F.I.Sh", placeholder: "Masalan: Husenov Abdullo", required: true },
         { key: "phone", label: "Telefon", placeholder: "+998 ...", type: "tel" },
         { key: "email", label: "Email", placeholder: "mail@example.com", type: "email" },
-
-        { key: "avatarUrl", label: "Rasm (URL)", placeholder: "https://...", type: "text" },
         { key: "address", label: "Manzil", placeholder: "Toshkent shahar, ...", type: "text" },
 
         { key: "activeAt", label: "Aktiv bo‘lgan vaqti", type: "datetime-local" },
@@ -437,46 +401,190 @@ export default function Page() {
     []
   );
 
+  // =========================
+  // Mukammal filter (local, page-level)
+  // =========================
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<AdminFilters>({
+    q: "",
+    fullName: "",
+    phone: "",
+    email: "",
+    address: "",
+    id: "",
+    avatarUrl: "",
+    status: "",
+    mainRole: "",
+    roleAny: "",
+    hasLocation: false,
+    activeFrom: "",
+    activeTo: "",
+    createdFrom: "",
+    createdTo: "",
+    updatedFrom: "",
+    updatedTo: "",
+    latMin: "",
+    latMax: "",
+    lngMin: "",
+    lngMax: "",
+  });
+
+  const roleOptions = useMemo(() => {
+    const all = items.flatMap((x: any) => normalizeRoles(x));
+    return uniq(all).sort((a, b) => a.localeCompare(b));
+  }, [items]);
+
+  const statusOptions = useMemo(() => {
+    const all = items.map((x: any) => String(x.status ?? "")).filter(Boolean);
+    return uniq(all).sort((a, b) => a.localeCompare(b));
+  }, [items]);
+
+  const mainRoleOptions = useMemo(() => {
+    const all = items.map((x: any) => String(x.role ?? "")).filter(Boolean);
+    return uniq(all).sort((a, b) => a.localeCompare(b));
+  }, [items]);
+
+  const filteredRows = useMemo(() => {
+    const f = filters;
+    const q = String(f.q ?? "").trim().toLowerCase();
+
+    return (items ?? []).filter((r) => {
+      const roles = normalizeRoles(r);
+
+      // Quick search (global)
+      if (q) {
+        const hay = [
+          (r as any).fullName,
+          (r as any).phone,
+          (r as any).email,
+          (r as any).role,
+          (r as any).rolesText,
+          (r as any).status,
+          (r as any).address,
+          (r as any).activeAt,
+          (r as any).id,
+          (r as any).avatarUrl,
+          roles.join(", "),
+        ]
+          .map((x) => String(x ?? ""))
+          .join(" | ")
+          .toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+
+      // Per-field text filters
+      if (f.fullName && !includesCI((r as any).fullName, f.fullName)) return false;
+      if (f.phone && !includesCI((r as any).phone, f.phone)) return false;
+      if (f.email && !includesCI((r as any).email, f.email)) return false;
+      if (f.address && !includesCI((r as any).address, f.address)) return false;
+      if (f.id && !includesCI((r as any).id, f.id)) return false;
+      if (f.avatarUrl && !includesCI((r as any).avatarUrl, f.avatarUrl)) return false;
+
+      // Select filters
+      if (f.status && String((r as any).status ?? "") !== f.status) return false;
+      if (f.mainRole && String((r as any).role ?? "") !== f.mainRole) return false;
+      if (f.roleAny && !roles.includes(f.roleAny)) return false;
+
+      // Location
+      const lat = toNum((r as any).lat ?? (r as any).latitude);
+      const lng = toNum((r as any).lng ?? (r as any).longitude);
+      const hasLoc = lat != null && lng != null;
+      if (f.hasLocation && !hasLoc) return false;
+      if (hasLoc) {
+        if ((String(f.latMin).trim() || String(f.latMax).trim()) && !inNumRange(lat, f.latMin, f.latMax)) return false;
+        if ((String(f.lngMin).trim() || String(f.lngMax).trim()) && !inNumRange(lng, f.lngMin, f.lngMax)) return false;
+      } else {
+        // Agar range berilgan bo‘lsa, lokatsiyasizlar tushmasin
+        if (String(f.latMin).trim() || String(f.latMax).trim() || String(f.lngMin).trim() || String(f.lngMax).trim()) return false;
+      }
+
+      // Date ranges
+      if ((f.activeFrom || f.activeTo) && !inDateRange((r as any).activeAt, f.activeFrom, f.activeTo)) return false;
+      if ((f.createdFrom || f.createdTo) && !inDateRange((r as any).createdAt, f.createdFrom, f.createdTo)) return false;
+      if ((f.updatedFrom || f.updatedTo) && !inDateRange((r as any).updatedAt, f.updatedFrom, f.updatedTo)) return false;
+
+      return true;
+    });
+  }, [items, filters]);
+
+
   if (!ready) {
     return <div className="p-4 text-slate-600">Yuklanmoqda...</div>;
   }
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-600">
-          💡 Ko‘rish oynasida “Xarita” bo‘limi chiqishi uchun{" "}
-          <span className="font-semibold">lat/lng</span> kiriting (biz{" "}
-          <span className="font-semibold">latitude/longitude</span> ni ham avtomatik to‘ldiramiz).
-        </div>
-
-        <button
-          onClick={() => setFilterOpen(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-        >
-          Filter
-          <span className="text-xs text-slate-400">
-            ({filteredRows.length}/{items.length})
-          </span>
-        </button>
+      <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-600">
+        💡 Ko‘rish oynasida “Xarita” bo‘limi chiqishi uchun <span className="font-semibold">lat/lng</span> kiriting (biz{" "}
+        <span className="font-semibold">latitude/longitude</span> ni ham avtomatik to‘ldiramiz).
       </div>
+
+      {/* Filter trigger bar */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-sm text-slate-600">
+          Ko‘rsatilmoqda: <span className="font-semibold text-slate-900">{filteredRows.length}</span> / {items.length}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setFilterOpen(true)}
+            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Filter
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              setFilters({
+                q: "",
+                fullName: "",
+                phone: "",
+                email: "",
+                address: "",
+                id: "",
+                avatarUrl: "",
+                status: "",
+                mainRole: "",
+                roleAny: "",
+                hasLocation: false,
+                activeFrom: "",
+                activeTo: "",
+                createdFrom: "",
+                createdTo: "",
+                updatedFrom: "",
+                updatedTo: "",
+                latMin: "",
+                latMax: "",
+                lngMin: "",
+                lngMax: "",
+              })
+            }
+            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Tozalash
+          </button>
+        </div>
+      </div>
+
+      <FilterModal
+        open={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        value={filters}
+        onChange={setFilters}
+        roleOptions={roleOptions}
+        statusOptions={statusOptions}
+        mainRoleOptions={mainRoleOptions}
+      />
 
       <CrudPageClient<AdminRow>
         title="Adminlar"
         description="Asosiy adminlar ro‘yxati"
         rows={filteredRows}
         columns={columns as any}
-        searchKeys={[
-          "fullName",
-          "phone",
-          "email",
-          "role",
-          "rolesText",
-          "status",
-          "address",
-          "activeAt",
-        ]}
+        // ✅ search/filter hammasi FilterModal ichida
+        searchKeys={[] as any}
         fields={fields as any}
+        tableOptions={{ showToolbar: false }}
         onCreate={(payload) => {
           const t = nowIso();
 
@@ -515,6 +623,9 @@ export default function Page() {
             lng,
             latitude: lat,
             longitude: lng,
+            // ✅ track (oldingi yo'llar)
+            trackPoints: lat != null && lng != null ? [{ lat, lng, at: nowIso() }] : [],
+
 
             activeAt: activeAt || nowIso(),
             createdAt: t,
@@ -545,6 +656,20 @@ export default function Page() {
             next.rolesText = rolesToText(merged);
           }
 
+          // ✅ track: koordinata o'zgarsa yangi nuqta qo'shamiz
+          const prev = api.get(id) as any;
+          const prevLat = toNum(prev?.lat ?? prev?.latitude);
+          const prevLng = toNum(prev?.lng ?? prev?.longitude);
+          const newLat = ("lat" in next ? next.lat : prevLat) as any;
+          const newLng = ("lng" in next ? next.lng : prevLng) as any;
+          if (newLat != null && newLng != null) {
+            const changed = prevLat == null || prevLng == null || prevLat !== newLat || prevLng !== newLng;
+            if (changed) {
+              const prevTrack = Array.isArray(prev?.trackPoints) ? prev.trackPoints : [];
+              next.trackPoints = [...prevTrack, { lat: Number(newLat), lng: Number(newLng), at: nowIso() }];
+            }
+          }
+
           api.update(id, { ...next, updatedAt: nowIso() } as any);
         }}
         onRemove={(id) => api.remove(id)}
@@ -573,9 +698,8 @@ export default function Page() {
             "Longitude (legacy)": (r as any).longitude ?? "-",
 
             // ✅ Xarita bo‘limi endi la/lo bo‘yicha ishlaydi
-            Xarita: <OSMEmbed lat={la} lng={lo} />,
 
-            "Rasm (URL)": (r as any).avatarUrl || "-",
+            "Rasm": (r as any).avatarUrl || "-",
             Yaratilgan: (r as any).createdAt,
             Yangilangan: (r as any).updatedAt,
             ID: (r as any).id,
@@ -583,145 +707,7 @@ export default function Page() {
         }}
       />
 
-      {/* FILTER MODAL */}
-      {filterOpen && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-black/30 p-4">
-          <div className="w-full max-w-2xl rounded-3xl bg-white p-5 shadow-xl">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="text-lg font-extrabold text-slate-900">Filter</div>
-                <div className="text-sm text-slate-500">
-                  Ism, telefon, email, manzil, status, rol, aktiv vaqt va rollar bo‘yicha filtr
-                </div>
-              </div>
-
-              <button
-                onClick={() => setFilterOpen(false)}
-                className="rounded-2xl px-3 py-2 text-slate-600 hover:bg-slate-100"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="mt-4 grid gap-3">
-              <input
-                value={filters.q}
-                onChange={(e) => setFilters((s) => ({ ...s, q: e.target.value }))}
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-200"
-                placeholder="Qidirish: ism, tel, email, manzil, rol, status..."
-              />
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <select
-                  value={filters.status}
-                  onChange={(e) => setFilters((s) => ({ ...s, status: e.target.value as any }))}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm"
-                >
-                  <option value="">Status: barchasi</option>
-                  <option value="active">active</option>
-                  <option value="blocked">blocked</option>
-                </select>
-
-                <select
-                  value={filters.primaryRole}
-                  onChange={(e) => setFilters((s) => ({ ...s, primaryRole: e.target.value as any }))}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm"
-                >
-                  <option value="">Asosiy rol: barchasi</option>
-                  <option value="SuperAdmin">SuperAdmin</option>
-                  <option value="Admin">Admin</option>
-                </select>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div>
-                  <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                    Aktiv bo‘lgan (dan)
-                  </div>
-                  <input
-                    type="datetime-local"
-                    value={filters.activeFrom}
-                    onChange={(e) => setFilters((s) => ({ ...s, activeFrom: e.target.value }))}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-200"
-                  />
-                </div>
-
-                <div>
-                  <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                    Aktiv bo‘lgan (gacha)
-                  </div>
-                  <input
-                    type="datetime-local"
-                    value={filters.activeTo}
-                    onChange={(e) => setFilters((s) => ({ ...s, activeTo: e.target.value }))}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-200"
-                  />
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 p-4">
-                <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                  Rollar (bir nechta tanlang)
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {ROLE_OPTIONS.map((r) => {
-                    const on = filters.roles.includes(r);
-                    return (
-                      <button
-                        key={r}
-                        type="button"
-                        onClick={() =>
-                          setFilters((s) => ({
-                            ...s,
-                            roles: on ? s.roles.filter((x) => x !== r) : [...s.roles, r],
-                          }))
-                        }
-                        className={[
-                          "rounded-full px-3 py-1 text-sm font-semibold transition",
-                          on ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200",
-                        ].join(" ")}
-                      >
-                        {r}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-3 text-xs text-slate-500">
-                  Tanlangan rollardan bittasi bo‘lsa ham mos keladi.
-                </div>
-              </div>
-
-              <div className="mt-2 flex items-center justify-end gap-2">
-                <button
-                  onClick={() =>
-                    setFilters({
-                      q: "",
-                      status: "",
-                      primaryRole: "",
-                      roles: [],
-                      activeFrom: "",
-                      activeTo: "",
-                    })
-                  }
-                  className="rounded-2xl px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100"
-                >
-                  Tozalash
-                </button>
-
-                <button
-                  onClick={() => setFilterOpen(false)}
-                  className="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-                >
-                  Qo‘llash
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 }

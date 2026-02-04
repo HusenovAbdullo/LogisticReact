@@ -52,10 +52,28 @@ export type Office = EntityBase & {
   status: "active" | "inactive";
 };
 
-export type Country = EntityBase & { name: string; code?: string };
-export type Region = EntityBase & { countryId: string; name: string };
-export type District = EntityBase & { regionId: string; name: string };
-export type Locality = EntityBase & { districtId: string; name: string; kind?: "mahalla" | "qishloq" | "kocha" };
+// GeoJSON territory (Polygon / MultiPolygon). Kept intentionally flexible.
+export type Territory = {
+  type: "Feature";
+  geometry: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: any;
+  };
+  properties?: Record<string, any> & {
+    style?: {
+      stroke?: string;
+      fill?: string;
+      weight?: number;
+      opacity?: number;
+      fillOpacity?: number;
+    };
+  };
+};
+
+export type Country = EntityBase & { name: string; code?: string; territory?: Territory | null };
+export type Region = EntityBase & { countryId: string; name: string; territory?: Territory | null };
+export type District = EntityBase & { regionId: string; name: string; territory?: Territory | null };
+export type Locality = EntityBase & { districtId: string; name: string; kind?: "mahalla" | "qishloq" | "kocha"; territory?: Territory | null };
 
 export type HududState = {
   countries: Country[];

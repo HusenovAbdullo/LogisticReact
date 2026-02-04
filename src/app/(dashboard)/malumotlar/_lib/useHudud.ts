@@ -3,16 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { Store, uid } from "./storage";
 import { nowIso } from "./seed";
-import type { Country, District, HududState, Locality, Region } from "./types";
+import type { Country, District, HududState, Locality, Region, Territory } from "./types";
 
 const KEY = "malumotlar_hududlar";
 
 function seed(): HududState {
   const t = nowIso();
-  const uz: Country = { id: uid("country"), createdAt: t, updatedAt: t, name: "O‘zbekiston", code: "UZ" };
-  const tq: Region = { id: uid("region"), createdAt: t, updatedAt: t, countryId: uz.id, name: "Toshkent" };
-  const yun: District = { id: uid("district"), createdAt: t, updatedAt: t, regionId: tq.id, name: "Yunusobod" };
-  const m1: Locality = { id: uid("locality"), createdAt: t, updatedAt: t, districtId: yun.id, name: "2-daha", kind: "mahalla" };
+  const uz: Country = { id: uid("country"), createdAt: t, updatedAt: t, name: "O‘zbekiston", code: "UZ", territory: null };
+  const tq: Region = { id: uid("region"), createdAt: t, updatedAt: t, countryId: uz.id, name: "Toshkent", territory: null };
+  const yun: District = { id: uid("district"), createdAt: t, updatedAt: t, regionId: tq.id, name: "Yunusobod", territory: null };
+  const m1: Locality = { id: uid("locality"), createdAt: t, updatedAt: t, districtId: yun.id, name: "2-daha", kind: "mahalla", territory: null };
   return {
     countries: [uz],
     regions: [tq],
@@ -51,9 +51,9 @@ export function useHududStore() {
       },
 
       // Countries
-      addCountry: (name: string, code?: string) => {
+      addCountry: (name: string, code?: string, territory?: Territory | null) => {
         const t = nowIso();
-        const c: Country = { id: uid("country"), createdAt: t, updatedAt: t, name, code };
+        const c: Country = { id: uid("country"), createdAt: t, updatedAt: t, name, code, territory: territory ?? null };
         setState((p) => ({ ...p, countries: [c, ...p.countries] }));
         return c.id;
       },
@@ -80,9 +80,9 @@ export function useHududStore() {
       },
 
       // Regions
-      addRegion: (countryId: string, name: string) => {
+      addRegion: (countryId: string, name: string, territory?: Territory | null) => {
         const t = nowIso();
-        const r: Region = { id: uid("region"), createdAt: t, updatedAt: t, countryId, name };
+        const r: Region = { id: uid("region"), createdAt: t, updatedAt: t, countryId, name, territory: territory ?? null };
         setState((p) => ({ ...p, regions: [r, ...p.regions] }));
         return r.id;
       },
@@ -107,9 +107,9 @@ export function useHududStore() {
       },
 
       // Districts
-      addDistrict: (regionId: string, name: string) => {
+      addDistrict: (regionId: string, name: string, territory?: Territory | null) => {
         const t = nowIso();
-        const d: District = { id: uid("district"), createdAt: t, updatedAt: t, regionId, name };
+        const d: District = { id: uid("district"), createdAt: t, updatedAt: t, regionId, name, territory: territory ?? null };
         setState((p) => ({ ...p, districts: [d, ...p.districts] }));
         return d.id;
       },
@@ -128,9 +128,9 @@ export function useHududStore() {
       },
 
       // Localities
-      addLocality: (districtId: string, name: string, kind: Locality["kind"]) => {
+      addLocality: (districtId: string, name: string, kind: Locality["kind"], territory?: Territory | null) => {
         const t = nowIso();
-        const l: Locality = { id: uid("locality"), createdAt: t, updatedAt: t, districtId, name, kind };
+        const l: Locality = { id: uid("locality"), createdAt: t, updatedAt: t, districtId, name, kind, territory: territory ?? null };
         setState((p) => ({ ...p, localities: [l, ...p.localities] }));
         return l.id;
       },

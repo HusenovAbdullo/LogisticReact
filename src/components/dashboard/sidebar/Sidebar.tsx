@@ -80,6 +80,7 @@ export function Sidebar({
     skladlar: (ROUTES as any)?.malumotlarSkladlar ?? "/malumotlar/skladlar",
     ofislar: (ROUTES as any)?.malumotlarOfislar ?? "/malumotlar/ofislar",
     hududlar: (ROUTES as any)?.malumotlarHududlar ?? "/malumotlar/hududlar",
+    umumiy: (ROUTES as any)?.malumotlarUmumiy ?? "/malumotlar/umumiy",
   };
 
   const NAV: NavGroup[] = useMemo(() => {
@@ -99,9 +100,9 @@ export function Sidebar({
         icon: IconBox,
       },
 
+      
+
       { key: "shipments", href: ROUTES.orders, label: t("shipments"), icon: IconBox },
-      { key: "delivery", href: ROUTES.warehouse, label: t("delivery"), icon: IconTruck },
-      { key: "clients", href: ROUTES.couriers, label: t("clients"), icon: IconUsers },
 
       // ✅ YANGI: Ma'lumotlar (submenu bilan)
       {
@@ -120,8 +121,13 @@ export function Sidebar({
           { href: MALUMOTLAR.skladlar, label: t("Skladlar") ?? "Skladlar" },
           { href: MALUMOTLAR.ofislar, label: t("Ofislar") ?? "Ofislar" },
           { href: MALUMOTLAR.hududlar, label: t("Hududlar") ?? "Hududlar" },
+          { href: MALUMOTLAR.umumiy, label: t("Umumiy") ?? "Umumiy" },
         ],
       },
+      { key: "delivery", href: ROUTES.warehouse, label: t("delivery"), icon: IconTruck },
+      { key: "clients", href: ROUTES.couriers, label: t("clients"), icon: IconUsers },
+
+      
     ];
   }, [t]);
 
