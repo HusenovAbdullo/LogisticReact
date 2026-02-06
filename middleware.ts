@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { getAuthCookieName } from "@/shared/config/env.server";
 
 export function middleware(req: NextRequest) {
+  console.log("Cookies incoming:", req.cookies.getAll());
   const { pathname } = req.nextUrl;
 
   const isProtected =

@@ -12,10 +12,10 @@ type BackendLoginResponse = {
 };
 
 function cookieBase() {
-  const isProd = process.env.NODE_ENV === "production";
+  // const isProd = process.env.NODE_ENV === "production";
   return {
     httpOnly: true,
-    secure: isProd,
+    secure: false,
     sameSite: "lax" as const,
     path: "/",
   };
