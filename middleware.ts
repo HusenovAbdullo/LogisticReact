@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getAuthCookieName } from "@/shared/config/env.server";
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -12,7 +13,7 @@ export function middleware(req: NextRequest) {
 
   if (!isProtected) return NextResponse.next();
 
-  const AUTH_COOKIE = process.env.AUTH_COOKIE || "sp_token";
+  const AUTH_COOKIE = getAuthCookieName(); // 🔥 ASOSIY FIX
   const access = req.cookies.get(AUTH_COOKIE)?.value;
 
   if (!access) {
@@ -26,5 +27,10 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/orders/:path*", "/warehouse/:path*", "/couriers/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/orders/:path*",
+    "/warehouse/:path*",
+    "/couriers/:path*",
+  ],
 };
