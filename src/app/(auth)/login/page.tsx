@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 /* =========================
@@ -10,9 +10,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 type Theme = "light" | "dark";
 
 /* =========================
- * Page
+ * Login Content Component (wrapped in Suspense)
  * ========================= */
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const params = useSearchParams();
   const nextUrl = params.get("next") || "/";
@@ -59,7 +59,7 @@ export default function LoginPage() {
         return;
       }
 
-      router.push(nextUrl); // ✅
+      router.push(nextUrl);
     } finally {
       setLoading(false);
     }
@@ -107,7 +107,6 @@ export default function LoginPage() {
                 <div className="relative">
                   <div className="absolute -inset-3 rounded-[28px] bg-gradient-to-br from-blue-600/25 to-indigo-600/25 blur-xl" />
                   <div className="relative grid h-16 w-16 place-items-center rounded-[26px] bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-[0_18px_34px_rgba(37,99,235,0.28)] ring-1 ring-white/15">
-                    {/* Tashkilot logosi (o‘zingiznikiga almashtirasiz) */}
                     <OrgLogoMark className="h-8 w-8" />
                   </div>
                 </div>
@@ -118,7 +117,7 @@ export default function LoginPage() {
               </h1>
               <p className="mt-2 text-center text-sm leading-6 text-slate-600 dark:text-slate-300">
                 Login va parolingizni kiriting. Xavfsizlik uchun
-                ma’lumotlaringiz himoyalanadi.
+                ma'lumotlaringiz himoyalanadi.
               </p>
 
               {/* Mini trust row */}
@@ -183,9 +182,9 @@ export default function LoginPage() {
                       onClick={() => setShowPass((v) => !v)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                       aria-label={
-                        showPass ? "Parolni yashirish" : "Parolni ko‘rsatish"
+                        showPass ? "Parolni yashirish" : "Parolni ko'rsatish"
                       }
-                      title={showPass ? "Yashirish" : "Ko‘rsatish"}
+                      title={showPass ? "Yashirish" : "Ko'rsatish"}
                     >
                       {showPass ? (
                         <IconEyeOff className="h-5 w-5" />
@@ -277,12 +276,12 @@ export default function LoginPage() {
 
                 {/* Register */}
                 <div className="pt-1 text-center text-sm text-slate-500 dark:text-slate-400">
-                  Akkaunt yo‘qmi?{" "}
+                  Akkaunt yo'qmi?{" "}
                   <Link
                     href="/register"
                     className="font-semibold text-blue-700 hover:underline dark:text-blue-300"
                   >
-                    Ro‘yxatdan o‘tish
+                    Ro'yxatdan o'tish
                   </Link>
                 </div>
               </form>
@@ -295,6 +294,30 @@ export default function LoginPage() {
           </div>
         </div>
       </main>
+    </div>
+  );
+}
+
+/* =========================
+ * Page (Main Export with Suspense)
+ * ========================= */
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginPageSkeleton />}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+/* =========================
+ * Loading Skeleton
+ * ========================= */
+function LoginPageSkeleton() {
+  return (
+    <div className="min-h-screen bg-[#eef2ff] dark:bg-slate-950">
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
+      </div>
     </div>
   );
 }
@@ -443,7 +466,6 @@ function Spinner({ className }: { className?: string }) {
 /* =========================
  * Logos / Icons
  * ========================= */
-// Tashkilot logosi: o‘zingizning SVG’ingiz bilan almashtiring
 function OrgLogoMark({ className }: { className?: string }) {
   return (
     <svg

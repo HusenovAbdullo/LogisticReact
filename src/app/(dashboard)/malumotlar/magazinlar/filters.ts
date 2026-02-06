@@ -10,6 +10,7 @@ export type ShopRow = Shop & {
   lng?: number;
   latitude?: number;
   longitude?: number;
+  trackPoints?: Array<{ lat: number; lng: number; at: string | Date }>; 
 };
 
 export const shopSearchKeys: (keyof ShopRow)[] = ["name", "owner", "phone", "address", "status", "telegram", "note", "id"];

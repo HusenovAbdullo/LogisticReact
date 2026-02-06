@@ -250,8 +250,8 @@ export default function AssignToCourierModal({
   const url1 = await makePdfList(list, courier.name);
   const url2 = await makeChek(list, courier.name);
 
-  setPdfUrl(url1);
-  setChekUrl(url2);
+  setPdfUrl(url1.toString());
+  setChekUrl(url2.toString());
 
   setResultOpen(true);
 }

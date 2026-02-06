@@ -11,6 +11,7 @@ export type EmployeeRow = Employee & {
   lng?: number;
   latitude?: number;
   longitude?: number;
+  trackPoints?: Array<{ lat: number; lng: number; at: string | Date }>;
 };
 
 export const employeeSearchKeys: (keyof EmployeeRow)[] = [

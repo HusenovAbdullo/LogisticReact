@@ -286,7 +286,7 @@ function makeEvents(createdAt: Date, status: OrderStatus, courierId: string | nu
 
   if (status === "returned") {
     push(500, "Qaytarildi", "status", "returned", {
-     endif: "Posilka qaytarildi.",
+     description: "Posilka qaytarildi.",
       senderEmployee: pick(EMPLOYEES),
       receiverEmployee: pick(EMPLOYEES),
     });

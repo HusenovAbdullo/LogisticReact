@@ -10,6 +10,7 @@ export type OfficeRow = Office & {
   lng?: number;
   latitude?: number;
   longitude?: number;
+  trackPoints?: Array<{ lat: number; lng: number; at: string | Date }>; 
 };
 
 export const officeSearchKeys: (keyof OfficeRow)[] = ["name", "manager", "phone", "address", "status", "telegram", "note", "id"];

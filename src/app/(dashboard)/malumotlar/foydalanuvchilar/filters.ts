@@ -10,6 +10,7 @@ export type UserRow = User & {
   lng?: number;
   latitude?: number;
   longitude?: number;
+  trackPoints?: Array<{ lat: number; lng: number; at: string | Date }>; 
 };
 
 export const userSearchKeys: (keyof UserRow)[] = ["fullName", "phone", "type", "address", "status", "telegram", "note", "id"];
@@ -21,7 +22,7 @@ export function getUserAdvancedFilter(rows: UserRow[]): AdvancedFilterConfig<Use
   return {
     storageKey: "foydalanuvchilar__advancedFilter",
     title: "Foydalanuvchilar filtri",
-    description: "Matn bo‘yicha izlash, select, sana oralig‘i va lokatsiya bo‘yicha filtr.",
+    description: "Matn bo'yicha izlash, select, sana oralig'i va lokatsiya bo'yicha filtr.",
     schema: [
       {
         key: "q",

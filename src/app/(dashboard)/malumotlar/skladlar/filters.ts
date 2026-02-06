@@ -10,6 +10,7 @@ export type WarehouseRow = Warehouse & {
   lng?: number;
   latitude?: number;
   longitude?: number;
+  trackPoints?: Array<{ lat: number; lng: number; at: string | Date }>;
 };
 
 export const warehouseSearchKeys: (keyof WarehouseRow)[] = ["name", "manager", "phone", "address", "status", "telegram", "note", "id"];

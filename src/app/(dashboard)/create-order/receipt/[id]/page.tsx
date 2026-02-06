@@ -27,7 +27,7 @@ type MockOrder = {
   };
 
   shipment?: {
-    weightG?: number; // ✅ gramm
+    weightG?: number;
     volumeM3?: number;
     pieces?: number;
     serviceType?: string;
@@ -46,9 +46,12 @@ type MockOrder = {
   };
 };
 
-function readOrdersFromCookie(): MockOrder[] {
-  const raw = cookies().get(MOCK_COOKIE)?.value;
+// ✅ cookies() ni await qilish kerak
+export async function readOrdersFromCookie(): Promise<MockOrder[]> {
+  const cookieStore = await cookies(); // await qo'shildi
+  const raw = cookieStore.get(MOCK_COOKIE)?.value;
   if (!raw) return [];
+
   try {
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
@@ -57,9 +60,10 @@ function readOrdersFromCookie(): MockOrder[] {
   }
 }
 
-export default function ReceiptPage({ params }: { params: { id: string } }) {
-  const list = readOrdersFromCookie();
-  const order = list.find((x) => x?.id === params.id);
+// ✅ Server komponent async
+export default async function ReceiptPage({ params }: { params: { id: string } }) {
+  const list = await readOrdersFromCookie();
+  const order = list.find((x: MockOrder) => x?.id === params.id);
 
   if (!order) notFound();
 
