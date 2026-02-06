@@ -207,12 +207,12 @@ function LoginContent() {
                     Eslab qolish
                   </label>
 
-                  <Link
+                  {/* <Link
                     href="/forgot-password"
                     className="text-sm font-semibold text-blue-700 hover:underline dark:text-blue-300"
                   >
                     Parolni unutdingizmi?
-                  </Link>
+                  </Link> */}
                 </div>
 
                 {/* Error */}
@@ -277,12 +277,12 @@ function LoginContent() {
                 {/* Register */}
                 <div className="pt-1 text-center text-sm text-slate-500 dark:text-slate-400">
                   Akkaunt yo'qmi?{" "}
-                  <Link
+                  {/* <Link
                     href="/register"
                     className="font-semibold text-blue-700 hover:underline dark:text-blue-300"
                   >
                     Ro'yxatdan o'tish
-                  </Link>
+                  </Link> */}
                 </div>
               </form>
             </div>
